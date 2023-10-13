@@ -41,6 +41,11 @@
   background-color: #d3d3d3;
 }
 
+.burger {
+  background-color: #181818;
+  border-style: none;
+}
+
 .nav__menu {
   display: block;
   visibility: visible;

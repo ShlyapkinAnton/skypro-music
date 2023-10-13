@@ -1,6 +1,12 @@
 import './AudioPlayers.css'
+import { useState } from 'react';
 
 export default function Player() {
+  const [contentVisible, setContentVisible] = useState(false);
+    setTimeout(() => {
+      setContentVisible(true);
+    }, 4000);
+
   return (
     <div className="bar">
       <div className="bar__content">
@@ -36,20 +42,20 @@ export default function Player() {
             </div>
             <div className="player__track-play track-play">
               <div className="track-play__contain">
-                <div className="track-play__image">
+                <div className="track-play__image"> { contentVisible ? (
                   <svg className="track-play__svg" alt="music">
                     <use xlinkHref="img/icon/sprite.svg#icon-note" />
-                  </svg>
+                  </svg>): (<div className="hidden__big"></div>)}
                 </div>
-                <div className="track-play__author">
+                <div className="track-play__author"> { contentVisible ? (
                   <a className="track-play__author-link" href="http://">
                     Ты та...
-                  </a>
+                  </a>): (<div className="hidden__small"></div>)}
                 </div>
-                <div className="track-play__album">
+                <div className="track-play__album"> { contentVisible ? (
                   <a className="track-play__album-link" href="http://">
                     Баста
-                  </a>
+                  </a>): (<div className="hidden__small"></div>)}
                 </div>
               </div>
               <div className="track-play__like-dis">
