@@ -1,8 +1,8 @@
 import './App.css'
-import Player from './components/AudioPlayers'
-import Bar from './components/NavBar'
-import SBar from './components/SideBar'
-import Lists from './components/TrackList'
+import Player from './components/AudioPlayers/AudioPlayers'
+import Bar from './components/NavBar/NavBar'
+import SBar from './components/SideBar/SideBar'
+import Lists from './components/TrackList/TrackList'
 
 function App() {
   return (
@@ -19,4 +19,4 @@ function App() {
     </div>
   )
 }
-export default App;
+export default App
