@@ -287,3 +287,15 @@
 .volume__progress-line {
   width: 109px;
 }
+
+.hidden__big {
+  width: 51px;
+  height: 51px;
+  background: #313131;
+}
+
+.hidden__small {
+  width: 59px;
+  height: 15px;
+  background: #313131;
+}

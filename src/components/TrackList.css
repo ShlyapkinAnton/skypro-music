@@ -55,6 +55,9 @@
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
+  background: #181818;
+  color: white;
+  margin-right: 10px;
 }
 
 .filter__button:not(:last-child) {
@@ -122,4 +125,74 @@
 .col04 {
   width: 60px;
   text-align: end;
+}
+
+.display_no{
+  display: none;
+}
+.display_yes{
+  display: block;
+}
+
+.filter__performer {
+  position: relative;
+  display: inline-block;
+}
+
+.button__author-item {
+  display: block;
+  padding-bottom: 28px;
+  color: #FFFFFF;
+}
+
+.button__author-item:hover {
+  color: #B672FF;
+  text-decoration: underline;
+}
+
+.filter_year {
+  position: relative;
+  display: inline-block;
+}
+
+.button__year-item {
+  display: block;
+  padding-bottom: 28px;
+  color: #FFFFFF;
+}
+
+.button__year-item:hover {
+  color: #B672FF;
+  text-decoration: underline;
+}
+
+.filter_style {
+  position: relative;
+  display: inline-block;
+}
+
+.button__genre-item {
+  display: block;
+  padding-bottom: 28px;
+  color: #FFFFFF;
+}
+
+.button__genre-item:hover {
+  color: #B672FF;
+  text-decoration: underline;
+}
+
+#element {
+  overflow-y: scroll;
+}
+
+#element::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 10px;
+  background-color: #4B4949;
+}
+
+#element::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #FFFFFF;
 }
