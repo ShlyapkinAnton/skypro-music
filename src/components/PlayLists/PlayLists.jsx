@@ -12,7 +12,6 @@ export default function playlist() {
       <S.SidebarList>
         <S.SidebarItem>
           <S.SidebarLink href="/#">
-            {' '}
             {contentVisible ? (
               <S.SidebarImg src="img/playlist01.png" alt="day's playlist" />
             ) : (
@@ -22,7 +21,6 @@ export default function playlist() {
         </S.SidebarItem>
         <S.SidebarItem>
           <S.SidebarLink href="/#">
-            {' '}
             {contentVisible ? (
               <S.SidebarImg src="img/playlist02.png" alt="day's playlist" />
             ) : (
@@ -32,7 +30,6 @@ export default function playlist() {
         </S.SidebarItem>
         <S.SidebarItem>
           <S.SidebarLink href="/#">
-            {' '}
             {contentVisible ? (
               <S.SidebarImg src="img/playlist03.png" alt="day's playlist" />
             ) : (
