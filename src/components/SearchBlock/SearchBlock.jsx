@@ -1,6 +1,6 @@
 import * as S from './SearchBlockStyled'
 
-export default function SearchBlock() {
+export const SearchBlock = () => {
   return (
     <S.CenterblockSearch>
       <S.SearchSvg>

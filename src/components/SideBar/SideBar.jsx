@@ -1,7 +1,6 @@
 import * as S from './SideBarStyles'
-import PlayList from '../PlayLists/PlayLists'
 
-export default function SBar() {
+export const SBar = ({props}) => {
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
@@ -12,7 +11,7 @@ export default function SBar() {
           </S.SidebarIconSvg>
         </S.SidebarIcon>
       </S.SidebarPersonal>
-      <PlayList />
+      {props}
     </S.MainSidebar>
   )
 }

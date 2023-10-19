@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as S from "./AudioPlayersStyled";
 
-export default function Player() {
+export const Player = () => {
   const [contentVisible, setContentVisible] = useState(false);
     setTimeout(() => {
       setContentVisible(true);

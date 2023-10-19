@@ -1,9 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components'
-import * as S from './AppStyled.js'
-import Player from './components/AudioPlayers/AudioPlayers'
-import Bar from './components/NavBar/NavBar'
-import SBar from './components/SideBar/SideBar'
-import Lists from './components/TrackList/TrackList'
+import { AppRoutes } from './routes.jsx'
+import { useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -43,9 +40,8 @@ body {
   color: #ffffff;
 }
 
-button,
-._btn {
-  cursor: pointer;
+ul li {
+  list-style: none;
 }
 
 .wrapper {
@@ -61,58 +57,15 @@ button,
   margin: 0 auto;
   position: relative;
   background-color: #181818;
-}
-
-._btn-text:hover {
-  border-color: #d9b6ff;
-  color: #d9b6ff;
-  cursor: pointer;
-}
-
-._btn-icon:hover svg {
-  fill: transparent;
-  stroke: #acacac;
-  cursor: pointer;
-}
-
-._btn-text:active {
-  border-color: #ad61ff;
-  color: #ad61ff;
-  cursor: pointer;
-}
-
-._btn-icon:active svg {
-  fill: transparent;
-  stroke: #ffffff;
-  cursor: pointer;
-}
-
-._btn-icon:active .track-play__like-svg,
-._btn-icon:active .track-play__dislike-svg {
-  fill: #696969;
-  stroke: #ffffff;
-  cursor: pointer;
 }`
 
-function App() {
+export const App = () => {
+  const [user,setUser] = useState(false)
+
   return (
     <>
       <GlobalStyle />
-      <S.Wrapper>
-        <S.Container>
-          <S.Main>
-            <Bar />
-            <Lists />
-            <SBar />
-          </S.Main>
-
-          <Player />
-
-          <S.Footer />
-        </S.Container>
-      </S.Wrapper>
+      <AppRoutes user={user} setUser={setUser}/>
     </>
   )
 }
-
-export default App

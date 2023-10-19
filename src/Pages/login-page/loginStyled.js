@@ -1,84 +1,23 @@
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
+import styled from 'styled-components'
+import { NavLink } from "react-router-dom";
 
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-a,
-a:visited {
-  text-decoration: none;
-  font-family: 'StratosSkyeng', sans-serif;
-  cursor: pointer;
-}
-
-button,
-._btn {
-  cursor: pointer;
-}
-
-
-@font-face {
-  font-family: 'StratosSkyeng';
-  src: local('StratosSkyeng'), local('StratosSkyeng'),
-    url('/fonts/StratosSkyeng.woff2') format('woff2'),
-    url('/fonts/StratosSkyeng.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-  font-family: 'StratosSkyeng', sans-serif;
-}
-
-.wrapper {
-  width: 100%;
-  min-height: 100%;
-  overflow: hidden;
-}
-
-.container-enter {
+export const ContainerEnter = styled.div`
   max-width: 100%;
   height: 100vh;
   margin: 0 auto;
   position: relative;
   background-color: rgba(0, 0, 0, 0.85);
-}
+`
 
-.modal__btn-enter:hover {
-  background-color: #3f007d;
-}
-
-.modal__btn-signup:hover {
-  background-color: #f4f5f6;
-}
-
-.modal__btn-enter:active {
-  background-color: #271a58;
-}
-
-.modal__btn-signup:active {
-  background-color: #d9d9d9;
-}
-
-.modal__block {
+export const ModalBlock = styled.div`
   position: absolute;
   z-index: 2;
   left: calc(50% - (366px / 2));
   top: calc(50% - (439px / 2));
   opacity: 1;
-}
+`
 
-.modal__form-login {
+export const ModalFormLogin = styled.form`
   width: 366px;
   height: 439px;
   background-color: #ffffff;
@@ -94,70 +33,99 @@ body {
   -ms-flex-align: center;
   align-items: center;
   padding: 43px 47px 47px 40px;
-}
 
-.modal__form-login input:first-child {
-  margin-bottom: 30px;
-}
+  input:first-child {
+    margin-bottom: 30px;
+  }
+`
+// .modal__form-login input:first-child {
+//   margin-bottom: 30px;
+// }
 
-.modal__logo {
+export const ModalFormLoginLink = styled.form``
+
+export const ModalLogo = styled.div`
   width: 140px;
   height: 21px;
   margin-bottom: 34px;
   background-color: transparent;
-}
+`
 
-.modal__logo img {
+export const ModalLogoImg = styled.img`
   width: 140px;
   height: auto;
-}
+`
 
-.modal__input {
+export const ModalLoginInput = styled.input`
   width: 100%;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid #d0cece;
   padding: 8px 1px;
-}
+  margin-bottom: 30px;
 
-.modal__input::-webkit-input-placeholder {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.05px;
-  color: #d0cece;
-}
+  &::-webkit-input-placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #d0cece;
+  }
+  &:-ms-input-placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #d0cece;
+  }
+  &::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #d0cece;
+  }
+`
 
-.modal__input:-ms-input-placeholder {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.05px;
-  color: #d0cece;
-}
+export const ModalInput = styled.input`
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #d0cece;
+  padding: 8px 1px;
 
-.modal__input::-ms-input-placeholder {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.05px;
-  color: #d0cece;
-}
+  &::-webkit-input-placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #d0cece;
+  }
+  &:-ms-input-placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #d0cece;
+  }
+  &::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #d0cece;
+  }
+`
 
-.modal__input::placeholder {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: -0.05px;
-  color: #d0cece;
-}
-
-.modal__btn-enter {
+export const ModalBtnEnter = styled.button`
   width: 278px;
   height: 52px;
   background-color: #580ea2;
@@ -174,9 +142,17 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
 
-.modal__btn-enter a {
+  &:hover {
+    background-color: #3f007d;
+  }
+
+  &:active {
+    background-color: #271a58;
+  }
+`
+
+export const ModalBtnEnterLink = styled(NavLink)`
   width: 100%;
   height: 100%;
   font-style: normal;
@@ -194,9 +170,9 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
+`
 
-.modal__btn-signup {
+export const ModalBtnSignup = styled.button`
   width: 278px;
   height: 52px;
   background-color: transparent;
@@ -217,9 +193,16 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
 
-.modal__btn-signup a {
+  &:hover {
+    background-color: #f4f5f6;
+  }
+  &.modal__btn-signup:active {
+    background-color: #d9d9d9;
+  }
+`
+
+export const ModalBtnSignupLink = styled(NavLink)`
   width: 100%;
   height: 100%;
   font-style: normal;
@@ -237,8 +220,4 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-}
-
-.login {
-  margin-bottom: 30px;
-}
+`

@@ -1,7 +1,7 @@
 import * as S from './TracksStyled'
 import { useState } from 'react'
 
-export default function Tracks() {
+export const Tracks = () => {
   const [contentVisible, setContentVisible] = useState(false)
   setTimeout(() => {
     setContentVisible(true)
