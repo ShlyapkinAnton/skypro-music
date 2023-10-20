@@ -1,7 +1,6 @@
 import * as S from './loginStyled'
 
 export const LoginPage = ({ setUser }) => {
-  console.log('setUser:', setUser)
   return (
     <S.ContainerEnter>
       <S.ModalBlock>

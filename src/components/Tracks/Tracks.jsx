@@ -81,7 +81,7 @@ export const Tracks = () => {
           <S.TrackTitle>
             <S.TrackTitleImage>
               <S.TrackTitleSvg alt="music">
-                <use xlinkHref="img/icon/sprite.svg#icon-note" />
+                <use xlinkHref="/img/icon/sprite.svg#icon-note" />
               </S.TrackTitleSvg>
             </S.TrackTitleImage>
             <S.TrackTitleText>
@@ -98,7 +98,7 @@ export const Tracks = () => {
           </S.TrackAlbum>
           <S.TrackTime>
             <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like" />
+              <use xlinkHref="/img/icon/sprite.svg#icon-like" />
             </S.TrackTimeSvg>
             <S.TrackTimeText>{list.time}</S.TrackTimeText>
           </S.TrackTime>

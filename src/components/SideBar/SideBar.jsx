@@ -7,7 +7,7 @@ export const SBar = ({props}) => {
         <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
         <S.SidebarIcon>
           <S.SidebarIconSvg alt="logout">
-            <use xlinkHref="img/icon/sprite.svg#logout" />
+            <use xlinkHref="/img/icon/sprite.svg#logout" />
           </S.SidebarIconSvg>
         </S.SidebarIcon>
       </S.SidebarPersonal>

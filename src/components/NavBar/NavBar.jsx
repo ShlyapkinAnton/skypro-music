@@ -12,7 +12,7 @@ export const Bar = ({ setUser }) => {
   return (
     <S.MainNav>
       <S.NavLogo>
-        <S.LogoImage src="img/logo.png" alt="logo" />
+        <S.LogoImage src="/img/logo.png" alt="logo" />
       </S.NavLogo>
       <S.Burger type='button' onClick={handleMoreClick}><S.NavBurger>
         <S.BurgerLine />

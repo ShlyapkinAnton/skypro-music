@@ -13,7 +13,7 @@ export const PlayList = () => {
         <S.SidebarItem>
           <S.SidebarLink to="/category/1">
             {contentVisible ? (
-              <S.SidebarImg src="img/playlist01.png" alt="day's playlist" />
+              <S.SidebarImg src="/img/playlist01.png" alt="day's playlist" />
             ) : (
               <S.Hidden></S.Hidden>
             )}
@@ -22,7 +22,7 @@ export const PlayList = () => {
         <S.SidebarItem>
           <S.SidebarLink to="/category/2">
             {contentVisible ? (
-              <S.SidebarImg src="img/playlist02.png" alt="day's playlist" />
+              <S.SidebarImg src="/img/playlist02.png" alt="day's playlist" />
             ) : (
               <S.Hidden></S.Hidden>
             )}
@@ -31,7 +31,7 @@ export const PlayList = () => {
         <S.SidebarItem>
           <S.SidebarLink to="/category/3">
             {contentVisible ? (
-              <S.SidebarImg src="img/playlist03.png" alt="day's playlist" />
+              <S.SidebarImg src="/img/playlist03.png" alt="day's playlist" />
             ) : (
               <S.Hidden></S.Hidden>
             )}
