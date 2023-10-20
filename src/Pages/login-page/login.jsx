@@ -1,6 +1,15 @@
 import * as S from './loginStyled'
 
-export const LoginPage = ({ setUser }) => {
+export const LoginPage = ({ user, setUser }) => {
+  const handleLogin = () => {
+    localStorage.setItem("user", "test");
+    const userData = localStorage.getItem("user");
+    console.log(userData);
+    setUser(userData);
+  };
+
+  console.log(user);
+
   return (
     <S.ContainerEnter>
       <S.ModalBlock>
@@ -12,7 +21,7 @@ export const LoginPage = ({ setUser }) => {
           </S.ModalFormLoginLink>
           <S.ModalLoginInput type="text" name="login" placeholder="Почта" />
           <S.ModalInput type="password" name="password" placeholder="Пароль" />
-          <S.ModalBtnEnter onClick={() => setUser(true)}>
+          <S.ModalBtnEnter onClick={user === null && handleLogin}>
             <S.ModalBtnEnterLink to="/">Войти</S.ModalBtnEnterLink>
           </S.ModalBtnEnter>
           <S.ModalBtnSignup onClick={() => setUser(false)}>

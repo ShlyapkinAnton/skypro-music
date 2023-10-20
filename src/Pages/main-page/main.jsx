@@ -5,12 +5,12 @@ import { SBar } from '../../components/SideBar/SideBar.jsx'
 import { Lists } from '../../components/TrackList/TrackList.jsx'
 import { PlayList } from '../../components/PlayLists/PlayLists.jsx'
 
-export const MainPage = ({ setUser }) => {
+export const MainPage = ({ user, setUser }) => {
   return (
     <S.Wrapper>
       <S.Container>
         <S.Main>
-          <Bar setUser={setUser} />
+          <Bar user={user} setUser={setUser} />
           <Lists text="Треки" />
           <SBar props={PlayList()} />
         </S.Main>
