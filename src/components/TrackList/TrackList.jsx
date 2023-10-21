@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import * as S from './TrackListStyled'
-import SearchBlock from '../SearchBlock/SearchBlock'
-import Tracks from '../Tracks/Tracks'
+import {SearchBlock} from '../SearchBlock/SearchBlock'
+import {Tracks} from '../Tracks/Tracks'
 
-export default function Lists() {
+export const Lists = (props) => {
   const [filterPerformerVisible, setVisible] = useState(false)
   const filterPerformerClick = () => {
     setVisible(!filterPerformerVisible)
@@ -29,7 +29,7 @@ export default function Lists() {
     <S.MainCenterblock>
       <SearchBlock />
 
-      <S.CenterblockH2>Треки</S.CenterblockH2>
+      <S.CenterblockH2>{props.text}</S.CenterblockH2>
       <S.CenterblockFilter>
         <S.FilterTitle>Искать по:</S.FilterTitle>
 
@@ -97,7 +97,7 @@ export default function Lists() {
           <S.PlaylistTitleCol03>АЛЬБОМ</S.PlaylistTitleCol03>
           <S.PlaylistTitleCol04>
             <S.PlaylistTitleSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-watch" />
+              <use xlinkHref="/img/icon/sprite.svg#icon-watch" />
             </S.PlaylistTitleSvg>
           </S.PlaylistTitleCol04>
         </S.ContentTitle>
