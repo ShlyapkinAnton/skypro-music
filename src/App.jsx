@@ -61,11 +61,12 @@ ul li {
 
 export const App = () => {
   const [user,setUser] = useState(false)
+  const [playerVisible, setPlayerVisible] = useState(null);  
 
   return (
     <>
       <GlobalStyle />
-      <AppRoutes user={user} setUser={setUser}/>
+      <AppRoutes user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>
     </>
   )
 }

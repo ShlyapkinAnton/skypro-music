@@ -10,6 +10,9 @@ export const ContentPlaylist = styled.div`
   flex-direction: column;
   overflow-y: auto;
 `
+export const ContentPlaylistError = styled.h1`
+
+`
 
 export const PlaylistItem = styled.div`
   width: 100%;

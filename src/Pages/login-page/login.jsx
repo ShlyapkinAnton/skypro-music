@@ -4,11 +4,8 @@ export const LoginPage = ({ user, setUser }) => {
   const handleLogin = () => {
     localStorage.setItem("user", "test");
     const userData = localStorage.getItem("user");
-    console.log(userData);
     setUser(userData);
   };
-
-  console.log(user);
 
   return (
     <S.ContainerEnter>

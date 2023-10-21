@@ -7,7 +7,6 @@ export const Bar = ({ user, setUser }) => {
     localStorage.removeItem("user");
     setUser(null);
   };
-  console.log(user);
 
   const [showMore, setShowMore] = useState(false);
   function handleMoreClick() {
