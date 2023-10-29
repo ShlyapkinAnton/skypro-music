@@ -10,6 +10,7 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
 
 export const AppRoutes = () => {
   const [user, setUser] = useState(null);
+  const [playerVisible, setPlayerVisible] = useState(null);  
 
   return (
     <Routes>
@@ -17,9 +18,9 @@ export const AppRoutes = () => {
       <Route path="/register" element={<RegisterPage />} />
 
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<MainPage user={user} setUser={setUser} />} />
-        <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/category/:id" element={<CategotyPage />} />
+        <Route path="/" element={<MainPage user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>} />
+        <Route path="/favorites" element={<FavoritesPage user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>} />
+        <Route path="/category/:id" element={<CategotyPage user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

@@ -11,7 +11,7 @@ const arr = [
   { id: 3, listName: `Инди-заряд` },
 ]
 
-export const CategotyPage = () => {
+export const CategotyPage = ({ user, setUser, playerVisible, setPlayerVisible }) => {
   const param = useParams()
   let list = arr.find((el) => el.id === Number(param.id))
 
@@ -19,12 +19,12 @@ export const CategotyPage = () => {
     <S.Wrapper>
       <S.Container>
         <S.Main>
-          <Bar />
-          <Lists text={list.listName} />
+          <Bar user={user} setUser={setUser}/>
+          <Lists text={list.listName} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>
           <SBar />
         </S.Main>
 
-        <Player />
+        {playerVisible ? <Player playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/> : null}
 
         <S.Footer />
       </S.Container>
