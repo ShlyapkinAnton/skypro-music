@@ -27,7 +27,9 @@ a:visited {
   font-family: "StratosSkyeng";
   src: local("StratosSkyeng"), local("StratosSkyeng"),
     url("../fonts/StratosSkyeng.woff2") format("woff2"),
-    url("../fonts/StratosSkyeng.woff") format("woff");
+    url("../fonts/StratosSkyeng.woff") format("woff"),
+    url("../fonts/StratosSkyeng.truetype") format("truetype"),
+    url("../fonts/StratosSkyeng.svg") format("svg"),
   font-weight: 400;
   font-style: normal;
 }
@@ -60,13 +62,14 @@ ul li {
 }`
 
 export const App = () => {
-  const [user,setUser] = useState(false)
+  const [user,setUser] = useState(null)
   const [playerVisible, setPlayerVisible] = useState(null);  
+  const [activeTrack, setActiveTrack] = useState(false)
 
   return (
     <>
       <GlobalStyle />
-      <AppRoutes user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>
+      <AppRoutes user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
     </>
   )
 }

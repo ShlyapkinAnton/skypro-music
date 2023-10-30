@@ -11,8 +11,8 @@ export const RegisterPage = () => {
             </S.ModalLogo>
           </S.ModalFormLoginLink>
           <S.ModalInput type="text" name="login" placeholder="Почта" />
-          <S.ModalInput type="password" name="password" placeholder="Пароль" />
-          <S.ModalInput type="password" name="password" placeholder="Повторите пароль" />
+          <S.ModalInput type="new-password" name="password" placeholder="Пароль" />
+          <S.ModalInput type="new-password" name="password" placeholder="Повторите пароль" />
           <S.ModalBtnSignupEnt>
             <S.ModalBtnSignupEntLink href="../index.html">Зарегистрироваться</S.ModalBtnSignupEntLink>
           </S.ModalBtnSignupEnt>

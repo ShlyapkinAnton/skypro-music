@@ -17,7 +17,7 @@ export const LoginPage = ({ user, setUser }) => {
             </S.ModalLogo>
           </S.ModalFormLoginLink>
           <S.ModalLoginInput type="text" name="login" placeholder="Почта" />
-          <S.ModalInput type="password" name="password" placeholder="Пароль" />
+          <S.ModalInput type="current-password" name="password" placeholder="Пароль" />
           <S.ModalBtnEnter onClick={user === null && handleLogin}>
             <S.ModalBtnEnterLink to="/">Войти</S.ModalBtnEnterLink>
           </S.ModalBtnEnter>

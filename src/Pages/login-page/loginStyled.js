@@ -42,7 +42,7 @@ export const ModalFormLogin = styled.form`
 //   margin-bottom: 30px;
 // }
 
-export const ModalFormLoginLink = styled.form``
+export const ModalFormLoginLink = styled.div``
 
 export const ModalLogo = styled.div`
   width: 140px;
@@ -142,11 +142,9 @@ export const ModalBtnEnter = styled.button`
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-
   &:hover {
     background-color: #3f007d;
   }
-
   &:active {
     background-color: #271a58;
   }
@@ -193,11 +191,10 @@ export const ModalBtnSignup = styled.button`
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-
   &:hover {
     background-color: #f4f5f6;
   }
-  &.modal__btn-signup:active {
+  &:active {
     background-color: #d9d9d9;
   }
 `

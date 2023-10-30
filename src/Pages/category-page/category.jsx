@@ -20,7 +20,7 @@ export const CategotyPage = ({ user, setUser, playerVisible, setPlayerVisible })
       <S.Container>
         <S.Main>
           <Bar user={user} setUser={setUser}/>
-          <Lists text={list.listName} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>
+          <Lists list={list} text={list.listName} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible}/>
           <SBar />
         </S.Main>
 

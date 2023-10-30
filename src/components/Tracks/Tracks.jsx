@@ -1,36 +1,57 @@
 import * as S from './TracksStyled'
 import { useState, useEffect } from 'react'
-import { GetTracks, getOneTrack } from '../../Api.js'
+import { GetTracks, getOneTrack, getCatalog } from '../../Api.js'
 let errorText = null;
 
-export const Tracks = ({playerVisible, setPlayerVisible }) => {
-  const [contentVisible, setContentVisible] = useState(true)
+export const Tracks = ({text, list, playerVisible, setPlayerVisible, activeTrack, setActiveTrack }) => {
+
+  const [tracks, setTracks] = useState([]);
+
+  if (text === "Треки") {
+    console.log('Треки:',text);
+    useEffect(() => {
+
+      GetTracks().then((tracks) => {
+        errorText = null;
+        setTracks(tracks);
+        console.log("all",tracks);
+      })
+      .catch (() => {
+        errorText = "Не удалось загрузить плейлист, попробуйте позже";
+      })
+  
+    }, []);
+  } else if (text === "Плейлист дня" || text === "100 танцевальных хитов" || text === "Инди-заряд") { 
+    console.log('textId:',list.id);
+
+    useEffect(() => {
+
+      getCatalog({id: list.id}).then((tracks) => { 
+        errorText = null;
+        setTracks(tracks.items);
+        console.log("cat",tracks.items);
+      })
+      .catch (() => {
+        errorText = "Не удалось загрузить плейлист, попробуйте позже";
+      })
+  
+    }, []); 
+  } else {
+    console.log('!',text)
+  }
+
+  const [contentVisible, setContentVisible] = useState(false)
   setTimeout(() => {
     setContentVisible(true)
   }, 4000);
 
-  const [tracks, setTracks] = useState([]);
-  useEffect(() => {
-
-    GetTracks().then((tracks) => {
-      errorText = null;
-      setTracks(tracks);
+  const handleChooseTrackClick = (id) => {
+    getOneTrack({id}).then((track) => {
+      setActiveTrack(track);
+      console.log('track',track);
+      setPlayerVisible(track);
     })
-    .catch (() => {
-      errorText = "Не удалось загрузить плейлист, попробуйте позже";
-    })
-
-  }, []);
-
-  const [activeTrack, setActiveTrack] = useState(false)
-
-    const handleChooseTrackClick = (id) => {
-      getOneTrack({id}).then((track) => {
-        setActiveTrack(track);
-        // console.log(track);
-        setPlayerVisible(track);
-      })
-    }
+  }
  
   const ListItemVisible = tracks.map((track) => {
     let m = Math.trunc(track.duration_in_seconds/60);

@@ -44,6 +44,12 @@ export const ContainerButton = styled.button`
   border-radius: 6px;
   background: #580ea2;
   border-style: none;
+  &:hover {
+    background-color: #3f007d;
+  }
+  &:active {
+    background-color: #271a58;
+  }
 `
 
 export const ContainerButtonLink = styled(NavLink)`
