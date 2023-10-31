@@ -1,17 +1,18 @@
 import { useRef, useState, useEffect } from 'react';
 // import { ProgressBar } from './ProgressBar/ProgressBar.jsx';
 import * as S from "./AudioPlayersStyled";
-import { formatTime } from './time.jsx'
+import { formatTime } from '../time.js'
 
-export const Player = ({ playerVisible, setPlayerVisible, activeTrack, setActiveTrack }) => {
+export const Player = ({ activeTrack, setActiveTrack }) => {
   const [contentVisible, setContentVisible] = useState(false);
   setTimeout(() => {
     setContentVisible(true);
   }, 4000);
+ 
+  const audioRef = useRef(null);
 
   // Кнопка плей и пауза
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
 
   const handleStart = () => {
     audioRef.current.play();
@@ -26,7 +27,9 @@ export const Player = ({ playerVisible, setPlayerVisible, activeTrack, setActive
   // Запуск треда после клика
   useEffect(()=> {
     if (activeTrack) {
-      handleStart();
+      audioRef.current.addEventListener('loadeddata', () => {
+        handleStart();
+      })
     }
   },[activeTrack])
 
@@ -41,7 +44,6 @@ export const Player = ({ playerVisible, setPlayerVisible, activeTrack, setActive
   useEffect(()=> {
     audioRef.current.volume = isVolume/100;
   }, [isVolume])
-
 
   // Регулировка текущей позиции воспроизведения
   const [progressOn, setProgressOn] = useState(0);
@@ -61,9 +63,7 @@ export const Player = ({ playerVisible, setPlayerVisible, activeTrack, setActive
   }//изменение ползунка прокрутки
 
   useEffect(()=> {
-    audioRef.current.currentTime = progressOn;
-    // console.log(progressOn);
-    if (activeTrack.duration_in_seconds){
+    if (activeTrack){
       setDuration(audioRef.current.duration)
     }
     
@@ -73,7 +73,7 @@ export const Player = ({ playerVisible, setPlayerVisible, activeTrack, setActive
   return (
     <S.Bar>
       <S.DurationBlock>{formatTime(progressOn)} / {formatTime(duration)}</S.DurationBlock>
-      <audio style={{ display: 'none' }} loop={isLoop} ref={audioRef} src={playerVisible.track_file} onLoadedMetadata = {onLoadedMetadata} onTimeUpdate = { onTimeUpdate } controls></audio>
+      <audio style={{ display: 'none' }} loop={isLoop} ref={audioRef} src={activeTrack.track_file} onLoadedMetadata = {onLoadedMetadata} onTimeUpdate = { onTimeUpdate } controls></audio>
       <S.BarContent>
 
         {/* <ProgressBar currentTime={currentTime} setCurrentTime={setCurrentTime}/> */}
@@ -133,12 +133,12 @@ export const Player = ({ playerVisible, setPlayerVisible, activeTrack, setActive
                   </S.TrackPlayImage>
                   <S.TrackPlayAuthor> { contentVisible ? (
                     <S.TrackPlayAuthorLink href="http://">
-                      {playerVisible.name}
+                      {activeTrack.name}
                     </S.TrackPlayAuthorLink>): (<S.HiddenSmall></S.HiddenSmall>)}
                   </S.TrackPlayAuthor>
                   <S.TrackPlayAlbum> { contentVisible ? (
                     <S.TrackPlayAlbumLink href="http://">
-                      {playerVisible.author}
+                      {activeTrack.author}
                     </S.TrackPlayAlbumLink>): (<S.HiddenSmall></S.HiddenSmall>)}
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>

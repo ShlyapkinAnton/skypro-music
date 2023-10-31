@@ -62,14 +62,13 @@ ul li {
 }`
 
 export const App = () => {
-  const [user,setUser] = useState(null)
-  const [playerVisible, setPlayerVisible] = useState(null);  
+  const [user, setUser] = useState(null) 
   const [activeTrack, setActiveTrack] = useState(false)
 
   return (
     <>
       <GlobalStyle />
-      <AppRoutes user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
+      <AppRoutes user={user} setUser={setUser} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
     </>
   )
 }

@@ -303,6 +303,7 @@ export const TrackPlayAlbumLink = styled.a`
   font-size: 13px;
   line-height: 24px;
   color: #ffffff;
+  white-space: nowrap;
 `
 
 export const TrackPlayLikeDis = styled.div`
