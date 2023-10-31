@@ -4,18 +4,34 @@ import { Bar } from '../../components/NavBar/NavBar.jsx'
 import { SBar } from '../../components/SideBar/SideBar.jsx'
 import { Lists } from '../../components/TrackList/TrackList.jsx'
 import { PlayList } from '../../components/PlayLists/PlayLists.jsx'
+import { useState, useEffect } from 'react'
+import { GetTracks } from '../../Api.js'
 
-export const MainPage = ({ user, setUser, playerVisible, setPlayerVisible, activeTrack, setActiveTrack }) => {
+export const MainPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
+  const [tracks, setTracks] = useState([])
+  const [errorFetch, setErrorFetch] = useState(null)
+  useEffect(() => {
+    GetTracks()
+      .then((tracks) => {
+        setTracks(tracks)
+        console.log('Список треков', tracks)
+      })
+      .catch((error) => {
+        console.log(error.message)
+        setErrorFetch('Не удалось загрузить плейлист, попробуйте позже')
+      })
+  }, [])
+
   return (
     <S.Wrapper>
       <S.Container>
         <S.Main>
           <Bar user={user} setUser={setUser} />
-          <Lists text="Треки" playerVisible={playerVisible} setPlayerVisible={setPlayerVisible} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
+          <Lists text="Треки" tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
           <SBar props={PlayList()} />
         </S.Main>
-        
-        {playerVisible ? <Player playerVisible={playerVisible} setPlayerVisible={setPlayerVisible} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/> : null}
+
+        {activeTrack ? (<Player tracks={tracks} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>) : null}
 
         <S.Footer />
       </S.Container>

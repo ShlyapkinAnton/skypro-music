@@ -111,6 +111,7 @@ export const TrackAuthorLink  = styled.a`
   line-height: 24px;
   color: #ffffff;
   text-align: left;
+  white-space: nowrap;
 `
 
 export const TrackAlbum = styled.div`
@@ -123,6 +124,7 @@ export const TrackAlbumLink = styled.a`
   font-size: 16px;
   line-height: 24px;
   color: #696969;
+  white-space: nowrap;
 `;
 
 export const TrackTime = styled.div`
@@ -135,6 +137,13 @@ export const TrackTimeSvg = styled.svg`
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
+  &:hover {
+    stroke: #acacac;
+  }
+  &:active {
+    fill: #696969;
+    stroke: #fff;
+  }
 `;
 
 export const TrackTimeText = styled.span`

@@ -1,6 +1,7 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import { styled, createGlobalStyle } from 'styled-components'
 import { AppRoutes } from './routes.jsx'
 import { useState } from 'react';
+import { UserContext } from './Context/UserContext.js';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -60,16 +61,17 @@ ul li {
   position: relative;
   background-color: #181818;
 }`
-
 export const App = () => {
-  const [user,setUser] = useState(null)
-  const [playerVisible, setPlayerVisible] = useState(null);  
+  const [user, setUser] = useState(localStorage.getItem("user") || null) 
+  const [isLoginMode, setIsLoginMode] = useState(true)
   const [activeTrack, setActiveTrack] = useState(false)
 
   return (
     <>
       <GlobalStyle />
-      <AppRoutes user={user} setUser={setUser} playerVisible={playerVisible} setPlayerVisible={setPlayerVisible} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
+      <UserContext.Provider value={user}>
+        <AppRoutes user={user} setUser={setUser} isLoginMode={isLoginMode} setIsLoginMode={setIsLoginMode} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
+      </UserContext.Provider>
     </>
   )
 }

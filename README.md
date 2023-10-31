@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Working time on the Context
+
+Плановое время: 10 часов
+
+Фактическое время: 14 часов
+
 ## Available Scripts
 
 In the project directory, you can run:

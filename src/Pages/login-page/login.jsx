@@ -1,6 +1,6 @@
 import * as S from './loginStyled'
 
-export const LoginPage = ({ user, setUser }) => {
+const LoginPage = ({ user, setUser }) => {
   const handleLogin = () => {
     localStorage.setItem("user", "test");
     const userData = localStorage.getItem("user");
@@ -22,9 +22,7 @@ export const LoginPage = ({ user, setUser }) => {
             <S.ModalBtnEnterLink to="/">Войти</S.ModalBtnEnterLink>
           </S.ModalBtnEnter>
           <S.ModalBtnSignup onClick={() => setUser(false)}>
-            <S.ModalBtnSignupLink to="/register">
-              Зарегистрироваться
-            </S.ModalBtnSignupLink>
+            <S.ModalBtnSignupLink to="/register">Зарегистрироваться</S.ModalBtnSignupLink>
           </S.ModalBtnSignup>
         </S.ModalFormLogin>
       </S.ModalBlock>
