@@ -1,43 +1,24 @@
 import * as S from './TracksStyled'
-import { useState, useEffect } from 'react'
-import { GetTracks, getOneTrack } from '../../Api.js'
-let errorText = null;
+import { useState } from 'react'
+import { getOneTrack } from '../../Api.js'
+import { formatTime } from '../time.js'
 
-export const Tracks = ({playerVisible, setPlayerVisible }) => {
-  const [contentVisible, setContentVisible] = useState(true)
+export const Tracks = ({ tracks, errorFetch, activeTrack, setActiveTrack }) => {
+  const [contentVisible, setContentVisible] = useState(false)
   setTimeout(() => {
     setContentVisible(true)
-  }, 4000);
+  }, 4000)
 
-  const [tracks, setTracks] = useState([]);
-  useEffect(() => {
-
-    GetTracks().then((tracks) => {
-      errorText = null;
-      setTracks(tracks);
+  const handleChooseTrackClick = (id) => {
+    getOneTrack({ id }).then((track) => {
+      setActiveTrack(track)
+      console.log('Играет', track)
     })
-    .catch (() => {
-      errorText = "Не удалось загрузить плейлист, попробуйте позже";
-    })
+  }
 
-  }, []);
-
-  const [activeTrack, setActiveTrack] = useState(false)
-
-    const handleChooseTrackClick = (id) => {
-      getOneTrack({id}).then((track) => {
-        setActiveTrack(track);
-        // console.log(track);
-        setPlayerVisible(track);
-      })
-    }
- 
   const ListItemVisible = tracks.map((track) => {
-    let m = Math.trunc(track.duration_in_seconds/60);
-    let s = (track.duration_in_seconds % 60).toString().padStart(2, '0');
-
     return (
-      <S.PlaylistItem key={track.id}> 
+      <S.PlaylistItem key={track.id}>
         <S.PlaylistTrack>
           <S.TrackTitle>
             <S.TrackTitleImage>
@@ -45,23 +26,33 @@ export const Tracks = ({playerVisible, setPlayerVisible }) => {
                 <use xlinkHref="/img/icon/sprite.svg#icon-note" />
               </S.TrackTitleSvg>
             </S.TrackTitleImage>
-            <S.TrackTitleText key={track.id} onClick={() => handleChooseTrackClick(track.id)}>
+            <S.TrackTitleText
+              key={track.id}
+              onClick={() => handleChooseTrackClick(track.id)}
+            >
               <S.TrackTitleLink>
-                {track.name} <S.TrackTitleSpan>{track.textspan}</S.TrackTitleSpan>
+                {track.name}{' '}
+                <S.TrackTitleSpan>{track.textspan}</S.TrackTitleSpan>
               </S.TrackTitleLink>
             </S.TrackTitleText>
           </S.TrackTitle>
           <S.TrackAuthor>
-            <S.TrackAuthorLink href="http://">{track.author}</S.TrackAuthorLink>
+            <S.TrackAuthorLink href="http://">
+              <span>{track.author}</span>
+            </S.TrackAuthorLink>
           </S.TrackAuthor>
           <S.TrackAlbum>
-            <S.TrackAlbumLink href="http://">{track.album}</S.TrackAlbumLink>
+            <S.TrackAlbumLink href="http://">
+              <span>{track.album}</span>
+            </S.TrackAlbumLink>
           </S.TrackAlbum>
           <S.TrackTime>
             <S.TrackTimeSvg alt="time">
               <use xlinkHref="/img/icon/sprite.svg#icon-like" />
             </S.TrackTimeSvg>
-            <S.TrackTimeText>{m}:{s}</S.TrackTimeText>
+            <S.TrackTimeText>
+              {formatTime(track.duration_in_seconds)}
+            </S.TrackTimeText>
           </S.TrackTime>
         </S.PlaylistTrack>
       </S.PlaylistItem>
@@ -85,7 +76,9 @@ export const Tracks = ({playerVisible, setPlayerVisible }) => {
 
   return (
     <S.ContentPlaylist>
-      <S.ContentPlaylistError>{errorText !== null ? `Ошибка: ${errorText}` : null}</S.ContentPlaylistError>
+      <S.ContentPlaylistError>
+        {errorFetch !== null ? `Ошибка: ${errorFetch}` : null}
+      </S.ContentPlaylistError>
       {contentVisible ? ListItemVisible : ListItem}
     </S.ContentPlaylist>
   )

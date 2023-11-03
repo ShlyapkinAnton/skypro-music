@@ -40,6 +40,6 @@ export const SidebarIcon = styled.div`
 `;
 
 export const SidebarIconSvg = styled.svg`
-  width: 43px;
-  height: 43px;
+  width: 40px;
+  height: 40px;
 `;

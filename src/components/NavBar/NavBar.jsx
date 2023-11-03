@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as S from "../NavBar/NavBarStyled";
+import { Link } from "react-router-dom";
 
 export const Bar = ({ user, setUser }) => {
 
@@ -15,8 +16,8 @@ export const Bar = ({ user, setUser }) => {
 
   return (
     <S.MainNav>
-      <S.NavLogo>
-        <S.LogoImage src="/img/logo.png" alt="logo" />
+      <S.NavLogo> 
+        <Link to="/"><S.LogoImage src="/img/logo.png" alt="logo" /></Link>
       </S.NavLogo>
       <S.Burger type='button' onClick={handleMoreClick}><S.NavBurger>
         <S.BurgerLine />
