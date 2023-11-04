@@ -8,6 +8,7 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute.jsx'
 import { AuthPage } from './Pages/auth-page/auth.jsx'
 
 export const AppRoutes = ({user, setUser, isLoginMode, setIsLoginMode, activeTrack, setActiveTrack}) => {
+
   return (
     <Routes>
 

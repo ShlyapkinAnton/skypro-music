@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import { getCatalog } from '../../Api.js'
 
 export const FavoritesPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
+
   const [tracks, setTracks] = useState([]);
   const [errorFetch, setErrorFetch] = useState(null);
   useEffect(() => {
@@ -24,7 +25,9 @@ export const FavoritesPage = ({ user, setUser, activeTrack, setActiveTrack }) =>
     <S.Wrapper>
       <S.Container>
         <S.Main>
+
           <Bar user={user} setUser={setUser}/>
+
           <Lists text="Мои треки" tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
           <SBar />
         </S.Main>

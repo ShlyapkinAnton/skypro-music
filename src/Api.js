@@ -108,3 +108,4 @@ export async function getToken({ email, password }) {
   }).catch((error) => { alert(error.message) })
   return response
 }
+

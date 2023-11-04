@@ -14,6 +14,7 @@ const arr = [
 ]
 
 export const CategotyPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
+
   const param = useParams()
   let list = arr.find((el) => el.id === Number(param.id))
 
@@ -34,7 +35,9 @@ export const CategotyPage = ({ user, setUser, activeTrack, setActiveTrack }) => 
     <S.Wrapper>
       <S.Container>
         <S.Main>
+
           <Bar user={user} setUser={setUser}/>
+
           <Lists list={list} text={list.listName} tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
           <SBar />
         </S.Main>
