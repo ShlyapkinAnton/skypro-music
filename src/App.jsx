@@ -1,7 +1,7 @@
 import { styled, createGlobalStyle } from 'styled-components'
 import { AppRoutes } from './routes.jsx'
-import { useState } from 'react';
-import { UserContext } from './Context/UserContext.js';
+import { useState } from 'react'
+import { UserContext } from './Context/UserContext.js'
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -62,7 +62,7 @@ ul li {
   background-color: #181818;
 }`
 export const App = () => {
-  const [user, setUser] = useState(localStorage.getItem("user") || null) 
+  const [user, setUser] = useState(localStorage.getItem('user') || null)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [activeTrack, setActiveTrack] = useState(false)
 
@@ -70,7 +70,14 @@ export const App = () => {
     <>
       <GlobalStyle />
       <UserContext.Provider value={user}>
-        <AppRoutes user={user} setUser={setUser} isLoginMode={isLoginMode} setIsLoginMode={setIsLoginMode} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
+        <AppRoutes
+          user={user}
+          setUser={setUser}
+          isLoginMode={isLoginMode}
+          setIsLoginMode={setIsLoginMode}
+          activeTrack={activeTrack}
+          setActiveTrack={setActiveTrack}
+        />
       </UserContext.Provider>
     </>
   )

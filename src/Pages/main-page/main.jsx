@@ -27,11 +27,23 @@ export const MainPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
       <S.Container>
         <S.Main>
           <Bar user={user} setUser={setUser} />
-          <Lists text="Треки" tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
+          <Lists
+            text="Треки"
+            tracks={tracks}
+            errorFetch={errorFetch}
+            activeTrack={activeTrack}
+            setActiveTrack={setActiveTrack}
+          />
           <SBar props={PlayList()} />
         </S.Main>
 
-        {activeTrack ? (<Player tracks={tracks} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>) : null}
+        {activeTrack ? (
+          <Player
+            tracks={tracks}
+            activeTrack={activeTrack}
+            setActiveTrack={setActiveTrack}
+          />
+        ) : null}
 
         <S.Footer />
       </S.Container>
