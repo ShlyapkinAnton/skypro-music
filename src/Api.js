@@ -118,3 +118,4 @@ export async function getToken({ email, password }) {
   })
   return response
 }
+

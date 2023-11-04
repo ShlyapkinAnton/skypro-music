@@ -64,6 +64,7 @@ ul li {
 export const App = () => {
   const [user, setUser] = useState(localStorage.getItem('user') || null)
   const [isLoginMode, setIsLoginMode] = useState(true)
+
   const [activeTrack, setActiveTrack] = useState(false)
 
   return (

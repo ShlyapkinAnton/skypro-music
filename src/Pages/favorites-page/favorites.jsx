@@ -6,14 +6,10 @@ import { Lists } from '../../components/TrackList/TrackList.jsx'
 import { useState, useEffect } from 'react'
 import { getCatalog } from '../../Api.js'
 
-export const FavoritesPage = ({
-  user,
-  setUser,
-  activeTrack,
-  setActiveTrack,
-}) => {
-  const [tracks, setTracks] = useState([])
-  const [errorFetch, setErrorFetch] = useState(null)
+export const FavoritesPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
+
+  const [tracks, setTracks] = useState([]);
+  const [errorFetch, setErrorFetch] = useState(null);
   useEffect(() => {
     getCatalog()
       .then((tracks) => {
