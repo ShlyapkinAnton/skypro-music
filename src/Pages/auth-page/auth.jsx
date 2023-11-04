@@ -22,7 +22,7 @@ export const AuthPage = ({ isLoginMode, setIsLoginMode, setUser }) => {
       setButtonActive(true);
       await getSignIn({ email, password })
       .then((json) => {
-        alert(`Выполняется вход: ${email} ${password}`)
+        alert(`Выполняется вход: ${email} ${password}`);
         localStorage.setItem('user', json.username);
         setUser(localStorage.getItem('user'));
         setError(null);
