@@ -51,7 +51,7 @@ export const AuthPage = ({ isLoginMode, setIsLoginMode, setUser }) => {
       .then((json) => {
         alert(`Выполняется регистрация: ${email} ${password}`);
         localStorage.setItem('user', json.username);
-        setUser(true);
+        setUser(localStorage.getItem('user'));
         setError(null);
         setIsLoginMode(true)
         navigate("/", {replace:true});
