@@ -1,6 +1,6 @@
 import * as S from './registerStyled'
 
-export const RegisterPage = () => {
+const RegisterPage = () => {
   return (
     <S.ContainerSignup>
       <S.ModalBlock>

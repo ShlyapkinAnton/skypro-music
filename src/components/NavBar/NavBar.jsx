@@ -3,7 +3,6 @@ import * as S from "../NavBar/NavBarStyled";
 import { Link } from "react-router-dom";
 
 export const Bar = ({ user, setUser }) => {
-
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
@@ -28,7 +27,7 @@ export const Bar = ({ user, setUser }) => {
         <S.MenuList>
           <S.MenuItem><S.MenuLink to="/" >Главное</S.MenuLink></S.MenuItem>
           <S.MenuItem><S.MenuLink to="/favorites" >Мой плейлист</S.MenuLink></S.MenuItem>
-          <S.MenuItem><S.MenuLink to="/login" onClick={user !== null && handleLogout} >{ setUser ? 'ВЫЙТИ' : 'Войти' }</S.MenuLink ></S.MenuItem>
+          <S.MenuItem><S.MenuLink to="/auth" onClick={user !== null && handleLogout} >{ setUser ? 'ВЫЙТИ' : 'Войти' }</S.MenuLink ></S.MenuItem>
         </S.MenuList>
       </S.NavMenu>}
     </S.MainNav>

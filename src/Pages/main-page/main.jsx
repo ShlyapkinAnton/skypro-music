@@ -7,7 +7,9 @@ import { PlayList } from '../../components/PlayLists/PlayLists.jsx'
 import { useState, useEffect } from 'react'
 import { GetTracks } from '../../Api.js'
 
-export const MainPage = ({ setUser, activeTrack, setActiveTrack }) => {
+
+export const MainPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
+
   const [tracks, setTracks] = useState([])
   const [errorFetch, setErrorFetch] = useState(null)
   useEffect(() => {
@@ -26,7 +28,7 @@ export const MainPage = ({ setUser, activeTrack, setActiveTrack }) => {
     <S.Wrapper>
       <S.Container>
         <S.Main>
-          <Bar setUser={setUser} />
+          <Bar user={user} setUser={setUser} />
           <Lists
             text="Треки"
             tracks={tracks}
@@ -37,13 +39,7 @@ export const MainPage = ({ setUser, activeTrack, setActiveTrack }) => {
           <SBar props={PlayList()} />
         </S.Main>
 
-        {activeTrack ? (
-          <Player
-            tracks={tracks}
-            activeTrack={activeTrack}
-            setActiveTrack={setActiveTrack}
-          />
-        ) : null}
+        {activeTrack ? (<Player tracks={tracks} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>) : null}
 
         <S.Footer />
       </S.Container>
