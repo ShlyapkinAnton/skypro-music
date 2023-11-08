@@ -1,4 +1,28 @@
-import styled from "styled-components";
+import { styled, css, keyframes } from 'styled-components'
+
+const animationPointPulse = () => css`
+animation: pulse 0.6s ease-in-out infinite both;
+
+@keyframes pulse {
+  0%,
+  to {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+`;
+export const PointPlaying = styled.div`
+position: relative; 
+text-align: center;
+padding: 8px;
+width: 16px;
+height: 16px;
+background-color: #b672ff;
+border-radius: 50%;
+${(props) => (props.$playing ? animationPointPulse : "")};
+`;
 
 export const ContentPlaylist = styled.div`
   display: -webkit-box;
@@ -10,9 +34,8 @@ export const ContentPlaylist = styled.div`
   flex-direction: column;
   overflow-y: auto;
 `
-export const ContentPlaylistError = styled.h1`
 
-`
+export const ContentPlaylistError = styled.h1``
 
 export const PlaylistItem = styled.div`
   width: 100%;
@@ -36,7 +59,7 @@ export const PlaylistTrack = styled.div`
   align-items: center;
 `
 
-export const TrackTitle  = styled.div`
+export const TrackTitle = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -50,9 +73,7 @@ export const TrackTitle  = styled.div`
   width: 447px;
 `
 
-export const TrackTitleText  = styled.div`
-
-`
+export const TrackTitleText = styled.div``
 
 export const TrackTitleImage = styled.div`
   width: 51px;
@@ -86,7 +107,7 @@ export const TrackTitleLink = styled.a`
   color: #ffffff;
 `
 
-export const TrackTitleSpan  = styled.span`
+export const TrackTitleSpan = styled.span`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -104,7 +125,7 @@ export const TrackAuthor = styled.div`
   justify-content: flex-start;
 `
 
-export const TrackAuthorLink  = styled.a`
+export const TrackAuthorLink = styled.a`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -125,11 +146,9 @@ export const TrackAlbumLink = styled.a`
   line-height: 24px;
   color: #696969;
   white-space: nowrap;
-`;
+`
 
-export const TrackTime = styled.div`
-
-`;
+export const TrackTime = styled.div``
 
 export const TrackTimeSvg = styled.svg`
   width: 14px;
@@ -144,7 +163,7 @@ export const TrackTimeSvg = styled.svg`
     fill: #696969;
     stroke: #fff;
   }
-`;
+`
 
 export const TrackTimeText = styled.span`
   font-style: normal;
@@ -161,14 +180,14 @@ export const HiddenImage = styled.div`
   background-color: #313131;
 `
 
-export const HiddenText  = styled.div`
+export const HiddenText = styled.div`
   width: 356px;
   height: 19px;
   background-color: #313131;
   margin-left: 14px;
 `
 
-export const HiddenAuthor  = styled.div`
+export const HiddenAuthor = styled.div`
   width: 271px;
   height: 19px;
   background-color: #313131;
@@ -179,5 +198,3 @@ export const HiddenAlbum = styled.div`
   height: 19px;
   background-color: #313131;
 `
-
-

@@ -1,9 +1,20 @@
 import { useRef, useState, useEffect } from 'react';
 // import { ProgressBar } from './ProgressBar/ProgressBar.jsx';
 import * as S from "./AudioPlayersStyled";
-import { formatTime } from '../time.js'
+import { formatTime } from '../time.js';
+import { useDispatch, useSelector } from "react-redux"
+import { setAllTracks,  setIsPlaying,  setActiveTrack,  setNextTrack,  setPrevTrack, setShuffleTrack } from '../../store/slices/track.js';
+import { allTracksSelector, ActiveTrackSelector, isPlayingSelector, shuffleAllTracksSelector, shuffleSelector, indexActiveTrackSelector } from "../../store/selectors/index.js"
 
-export const Player = ({ activeTrack, setActiveTrack }) => {
+export const Player = () => {
+  const tracks = useSelector(allTracksSelector);
+  const activeTrack = useSelector(ActiveTrackSelector); // получить
+  const isPlaying = useSelector (isPlayingSelector);
+  const indexActiveTrack = useSelector(indexActiveTrackSelector);
+  const shuffle = useSelector(shuffleSelector);
+  const shuffleAllTracks = useSelector (shuffleAllTracksSelector);
+  const dispatch = useDispatch();
+
   const [contentVisible, setContentVisible] = useState(false);
   setTimeout(() => {
     setContentVisible(true);
@@ -12,17 +23,16 @@ export const Player = ({ activeTrack, setActiveTrack }) => {
   const audioRef = useRef(null);
 
   // Кнопка плей и пауза
-  const [isPlaying, setIsPlaying] = useState(false);
-
   const handleStart = () => {
     audioRef.current.play();
-    setIsPlaying(true);
+     dispatch(setIsPlaying(true));
   };
   const handleStop = () => {
     audioRef.current.pause();
-    setIsPlaying(false);
+     dispatch(setIsPlaying(false));
   };
   const togglePlay = isPlaying ? handleStop : handleStart;
+  const arrayTracksAll = shuffle ? shuffleAllTracks : tracks;
 
   // Запуск треда после клика
   useEffect(()=> {
@@ -30,8 +40,35 @@ export const Player = ({ activeTrack, setActiveTrack }) => {
       audioRef.current.addEventListener('loadeddata', () => {
         handleStart();
       })
+      audioRef.current.onended = () => {
+        if (indexActiveTrack < arrayTracksAll.length-1) {
+          dispatch(setNextTrack({
+            nextTrack: arrayTracksAll[arrayTracksAll.indexOf(activeTrack)+1], // слебующий трек будет играть +1 от текучего трека
+            indexNextTrack: arrayTracksAll.indexOf(activeTrack)+1,
+          }));
+        }
+      }
     }
   },[activeTrack])
+
+  // Кнопка следющий трек
+  const nextToggle = () => {
+    if (indexActiveTrack < arrayTracksAll.length-1) {
+      const indexNextTrack = arrayTracksAll.indexOf(activeTrack)+1;
+      return dispatch(setNextTrack({
+        nextTrack:arrayTracksAll[indexNextTrack], indexNextTrack,
+      }));
+    }
+  }
+  // Кнопка предыдущий трек  
+  const prevToggle = () => {
+    if (indexActiveTrack > 0) {
+      const indexPrevTrack  = arrayTracksAll.indexOf(activeTrack)-1;
+      return dispatch(setPrevTrack({
+        prevTrack:arrayTracksAll[indexPrevTrack], indexPrevTrack,
+      }));
+    }
+  }
 
   // Кнопка повтора
   const [isLoop, setIsLoop] = useState(false)
@@ -69,7 +106,6 @@ export const Player = ({ activeTrack, setActiveTrack }) => {
     
   }, [setDuration])
 
- 
   return (
     <S.Bar>
       <S.DurationBlock>{formatTime(progressOn)} / {formatTime(duration)}</S.DurationBlock>
@@ -92,7 +128,7 @@ export const Player = ({ activeTrack, setActiveTrack }) => {
             <S.BarPlayer>
               <S.PlayerControls>
 
-                <S.PlayerBtnPrev onClick={()=>alert('Функция пока не реализована')}>
+                <S.PlayerBtnPrev onClick={prevToggle}>
                   <S.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="/img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
@@ -104,7 +140,7 @@ export const Player = ({ activeTrack, setActiveTrack }) => {
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
 
-                <S.PlayerBtnNext onClick={()=>alert('Функция пока не реализована')}>
+                <S.PlayerBtnNext onClick={nextToggle}>
                   <S.PlayerBtnNextSvg alt="next">
                     <use xlinkHref="/img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
@@ -116,7 +152,7 @@ export const Player = ({ activeTrack, setActiveTrack }) => {
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
 
-                <S.PlayerBtnShuffle onClick={()=>alert('Функция пока не реализована')}>
+                <S.PlayerBtnShuffle onClick={() => { dispatch(setShuffleTrack(!shuffle)) }}>
                   <S.PlayerBtnShuffleSvg alt="shuffle">
                     <use xlinkHref="/img/icon/sprite.svg#icon-shuffle" />
                   </S.PlayerBtnShuffleSvg>
