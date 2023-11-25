@@ -2,11 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Working time on the Context
+## Working time on the Redux
 
-Плановое время: 10 часов
+Плановое время: 14 часов
 
-Фактическое время: 14 часов
+Фактическое время: 12 часов
 
 ## Available Scripts
 

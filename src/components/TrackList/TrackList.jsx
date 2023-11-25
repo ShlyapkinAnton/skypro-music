@@ -3,7 +3,7 @@ import * as S from './TrackListStyled'
 import {SearchBlock} from '../SearchBlock/SearchBlock'
 import {Tracks} from '../Tracks/Tracks'
 
-export const Lists = ({text, tracks, errorFetch, activeTrack, setActiveTrack }) => {
+export const Lists = ({text, tracks, errorFetch, activeTrack, setActiveTrack, handleActiveTrack }) => {
   const [filterPerformerVisible, setVisible] = useState(false)
   const filterPerformerClick = () => {
     setVisible(!filterPerformerVisible)
@@ -103,7 +103,7 @@ export const Lists = ({text, tracks, errorFetch, activeTrack, setActiveTrack }) 
           </S.PlaylistTitleCol04>
         </S.ContentTitle>
 
-        <Tracks tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
+        <Tracks tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack} handleActiveTrack={handleActiveTrack}/>
       </S.CenterblockContent>
     </S.MainCenterblock>
   )
