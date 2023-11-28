@@ -1,55 +1,36 @@
-import * as S from '../../AppStyled.js'
 import { useParams } from 'react-router-dom'
-import { Player } from '../../components/AudioPlayers/AudioPlayers.jsx'
-import { Bar } from '../../components/NavBar/NavBar.jsx'
-import { SBar } from '../../components/SideBar/SideBar.jsx'
 import { Lists } from '../../components/TrackList/TrackList.jsx'
 import { useState, useEffect } from 'react'
-import { getCatalog } from '../../Api.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { allCategorySelector } from '../../store/selectors/index.js'
+import { setAllCategory, setCurrentPage } from '../../store/slices/trackSlice.js'
+import { useGetSelectionsQuery } from '../../serviseQuery/tracks'
 
-const arr = [
-  { id: 1, listName: `Плейлист дня` },
-  { id: 2, listName: `100 танцевальных хитов` },
-  { id: 3, listName: `Инди-заряд` },
-]
-
-export const CategotyPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
-  const param = useParams()
-  let list = arr.find((el) => el.id === Number(param.id))
-
-  const [tracks, setTracks] = useState([])
+export const CategotyPage = () => {
+  const dispatch = useDispatch() 
+  const tracks = useSelector(allCategorySelector) 
   const [errorFetch, setErrorFetch] = useState(null)
+
+  const params = useParams();
+  const { data, isError, isLoading } = useGetSelectionsQuery(Number(params.id))
   useEffect(() => {
-    getCatalog({ id: list.id })
-      .then((tracks) => {
-        setTracks(tracks.items)
-        console.log('Список треков', tracks.items)
-      })
-      .catch((error) => {
-        console.log(error.message)
-        setErrorFetch('Не удалось загрузить плейлист, попробуйте позже')
-      })
-  }, [])
-
+    if (data) {
+      dispatch(setAllCategory(data?.items))
+      dispatch(setCurrentPage("Category"))
+      setErrorFetch(null)
+    }
+    if (isError) {
+      setErrorFetch('Не удалось загрузить плейлист, попробуйте позже')
+    }
+  }, [data, isError]);
+  
   return (
-    <S.Wrapper>
-      <S.Container>
-        <S.Main>
-          <Bar user={user} setUser={setUser}/>
-          <Lists list={list} text={list.listName} tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack}/>
-          <SBar />
-        </S.Main>
-
-        {activeTrack ? (
-          <Player
-            tracks={tracks}
-            activeTrack={activeTrack}
-            setActiveTrack={setActiveTrack}
-          />
-        ) : null}
-
-        <S.Footer />
-      </S.Container>
-    </S.Wrapper>
+    <Lists
+      text={data?.name}
+      errorFetch={errorFetch}
+      tracks={tracks}
+      isError={isError}
+      isLoading={isLoading}
+    />
   )
 }

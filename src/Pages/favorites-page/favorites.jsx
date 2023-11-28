@@ -1,52 +1,36 @@
-import * as S from '../../AppStyled.js'
-import { Player } from '../../components/AudioPlayers/AudioPlayers.jsx'
-import { Bar } from '../../components/NavBar/NavBar.jsx'
-import { SBar } from '../../components/SideBar/SideBar.jsx'
 import { Lists } from '../../components/TrackList/TrackList.jsx'
 import { useState, useEffect } from 'react'
-import { getCatalog } from '../../Api.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { allFavoritesTracksSelector } from '../../store/selectors/index.js'
+import { setAllFavoritesTracks, setCurrentPage } from '../../store/slices/trackSlice.js'
+import { useGetFavouriteTracksAllQuery } from '../../serviseQuery/tracks'
 
-export const FavoritesPage = ({ user, setUser, activeTrack, setActiveTrack }) => {
+export const FavoritesPage = () => {
+  const dispatch = useDispatch() // изменить
+  const tracks = useSelector(allFavoritesTracksSelector) // получить
+  const [errorFetch, setErrorFetch] = useState(null)
 
-  const [tracks, setTracks] = useState([]);
-  const [errorFetch, setErrorFetch] = useState(null);
+  const { data, isError, isLoading } = useGetFavouriteTracksAllQuery()
   useEffect(() => {
-    getCatalog()
-      .then((tracks) => {
-        setTracks(tracks)
-        console.log('Список треков', tracks)
-      })
-      .catch((error) => {
-        console.log(error.message)
-        setErrorFetch('Не удалось загрузить плейлист, попробуйте позже')
-      })
-  }, [])
+    if (data) {
+      dispatch(setAllFavoritesTracks(data))
+      dispatch(setCurrentPage("Favorites"))
+      setErrorFetch(null)
+    } else {
+      setErrorFetch('В этом плейлисте нет треков')
+    }
+    if (isError ) {
+      setErrorFetch('Не удалось загрузить плейлист, попробуйте позже')
+    }
+  }, [data, isError])
 
   return (
-    <S.Wrapper>
-      <S.Container>
-        <S.Main>
-          <Bar user={user} setUser={setUser} />
-          <Lists
-            text="Мои треки"
-            tracks={tracks}
-            errorFetch={errorFetch}
-            activeTrack={activeTrack}
-            setActiveTrack={setActiveTrack}
-          />
-          <SBar />
-        </S.Main>
-
-        {activeTrack ? (
-          <Player
-            tracks={tracks}
-            activeTrack={activeTrack}
-            setActiveTrack={setActiveTrack}
-          />
-        ) : null}
-
-        <S.Footer />
-      </S.Container>
-    </S.Wrapper>
+    <Lists
+      text="Мои треки"
+      errorFetch={errorFetch}
+      tracks={tracks}
+      isError={isError}
+      isLoading={isLoading}
+    />
   )
 }

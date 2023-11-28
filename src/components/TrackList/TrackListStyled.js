@@ -206,3 +206,20 @@ export const ButtonList = styled.div`
     background-color: #FFFFFF;
   }
 `
+export const ContentPlaylist = styled.div`
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-y: auto;
+`
+export const ContentPlaylistError = styled.h1``
+
+export const PlaylistItem = styled.div`
+  width: 100%;
+  display: block;
+  margin-bottom: 12px;
+`
