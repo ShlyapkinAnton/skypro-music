@@ -3,23 +3,22 @@ import { useRef, useState, useEffect } from 'react';
 import * as S from "./AudioPlayersStyled";
 import { formatTime } from '../time.js';
 import { useDispatch, useSelector } from "react-redux"
-import { setAllTracks,  setIsPlaying,  setActiveTrack,  setNextTrack,  setPrevTrack, setShuffleTrack } from '../../store/slices/track.js';
-import { allTracksSelector, ActiveTrackSelector, isPlayingSelector, shuffleAllTracksSelector, shuffleSelector, indexActiveTrackSelector } from "../../store/selectors/index.js"
+import { setIsPlaying, setNextTrack, setPrevTrack, setShuffleTrack } from '../../store/slices/trackSlice.js';
+import { ActiveTrackSelector, isPlayingSelector, shuffleAllTracksSelector, shuffleSelector, indexActiveTrackSelector, currentPlaylistSelector } from "../../store/selectors/index.js"
+import { useSetLikeMutation, useSetDislikeMutation, } from '../../serviseQuery/tracks'
 
-export const Player = () => {
-  const tracks = useSelector(allTracksSelector);
-  const activeTrack = useSelector(ActiveTrackSelector); // получить
+export const Player = ({ isLoading = true }) => {
+  const tracks = useSelector(currentPlaylistSelector);
+  const activeTrack = useSelector(ActiveTrackSelector) || {}; // получить
   const isPlaying = useSelector (isPlayingSelector);
   const indexActiveTrack = useSelector(indexActiveTrackSelector);
   const shuffle = useSelector(shuffleSelector);
   const shuffleAllTracks = useSelector (shuffleAllTracksSelector);
   const dispatch = useDispatch();
-
-  const [contentVisible, setContentVisible] = useState(false);
-  setTimeout(() => {
-    setContentVisible(true);
-  }, 4000);
- 
+  const [progressOn, setProgressOn] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isLoop, setIsLoop] = useState(false);
+  const [isVolume, setIsVolume] = useState(1)
   const audioRef = useRef(null);
 
   // Кнопка плей и пауза
@@ -43,7 +42,7 @@ export const Player = () => {
       audioRef.current.onended = () => {
         if (indexActiveTrack < arrayTracksAll.length-1) {
           dispatch(setNextTrack({
-            nextTrack: arrayTracksAll[arrayTracksAll.indexOf(activeTrack)+1], // слебующий трек будет играть +1 от текучего трека
+            nextTrack: arrayTracksAll[arrayTracksAll.indexOf(activeTrack)+1], 
             indexNextTrack: arrayTracksAll.indexOf(activeTrack)+1,
           }));
         }
@@ -71,20 +70,14 @@ export const Player = () => {
   }
 
   // Кнопка повтора
-  const [isLoop, setIsLoop] = useState(false)
   const toggleLoop = () => {
     setIsLoop(!isLoop);
   } 
 
   // Регулировка громкости
-  const [isVolume, setIsVolume] = useState(1)
   useEffect(()=> {
     audioRef.current.volume = isVolume/100;
   }, [isVolume])
-
-  // Регулировка текущей позиции воспроизведения
-  const [progressOn, setProgressOn] = useState(0);
-  const [duration, setDuration] = useState(0);
 
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration);
@@ -105,6 +98,34 @@ export const Player = () => {
     }
     
   }, [setDuration])
+
+  const [setLike] = useSetLikeMutation()
+  const [setDislike] = useSetDislikeMutation()
+  const auth = JSON.parse(localStorage.getItem('user'))
+  const isUserLike = Boolean(activeTrack?.stared_user?.find((user) => user.id === auth.id))
+  const [isLiked, setIsLiked] = useState(isUserLike)
+
+  useEffect(() => {
+    if (activeTrack?.stared_user) {
+      setIsLiked(isUserLike)
+    } else {
+      setIsLiked(true)
+    }
+  }, [isUserLike, activeTrack?.stared_user])
+
+  const handleLike = async (id) => {
+    setIsLiked(true)
+    await setLike({ id }).unwrap()
+  }
+
+  const handleDislike = async (id) => {
+    setIsLiked(false)
+    await setDislike({ id }).unwrap()
+  }
+
+  const toggleLikeDislike = (id) => {
+    isLiked ? handleDislike(id) : handleLike(id)
+  }
 
   return (
     <S.Bar>
@@ -162,17 +183,17 @@ export const Player = () => {
 
               <S.PlayerTrackPlay>
                 <S.TrackPlayContain>
-                  <S.TrackPlayImage> { contentVisible ? (
+                  <S.TrackPlayImage> { isLoading ? (
                     <S.TrackPlaySvg alt="music">
                       <use xlinkHref="/img/icon/sprite.svg#icon-note" />
                     </S.TrackPlaySvg>): (<S.HiddenBig></S.HiddenBig>)}
                   </S.TrackPlayImage>
-                  <S.TrackPlayAuthor> { contentVisible ? (
+                  <S.TrackPlayAuthor> { isLoading ? (
                     <S.TrackPlayAuthorLink href="http://">
                       {activeTrack.name}
                     </S.TrackPlayAuthorLink>): (<S.HiddenSmall></S.HiddenSmall>)}
                   </S.TrackPlayAuthor>
-                  <S.TrackPlayAlbum> { contentVisible ? (
+                  <S.TrackPlayAlbum> { isLoading ? (
                     <S.TrackPlayAlbumLink href="http://">
                       {activeTrack.author}
                     </S.TrackPlayAlbumLink>): (<S.HiddenSmall></S.HiddenSmall>)}

@@ -1,6 +1,10 @@
 export const allTracksSelector = (store) => store.tracks.allTracks;
-export const ActiveTrackSelector = (store) => store.tracks.activeTrack;
 export const isPlayingSelector = (store) => store.tracks.isPlaying;
+export const ActiveTrackSelector = (store) => store.tracks.activeTrack;
 export const indexActiveTrackSelector = (store) => store.tracks.indexActiveTrack;
 export const shuffleAllTracksSelector = (store) => store.tracks.shuffleAllTracks;
 export const shuffleSelector = (store) => store.tracks.shuffle;
+export const allFavoritesTracksSelector = (store) => store.tracks.allFavoritesTracks;
+export const allCategorySelector = (store) => store.tracks.allCategory; 
+export const currentPlaylistSelector = (store) => store.tracks.currentPlaylist;
+export const currentPageSelector = (store) => store.tracks.currentPage; 

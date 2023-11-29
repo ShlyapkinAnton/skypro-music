@@ -150,6 +150,11 @@ export const TrackAlbumLink = styled.a`
 
 export const TrackTime = styled.div``
 
+const TrackTimeSvgActive = () => css`
+  fill: #696969;
+  stroke: #fff;
+`;
+
 export const TrackTimeSvg = styled.svg`
   width: 14px;
   height: 12px;
@@ -163,6 +168,7 @@ export const TrackTimeSvg = styled.svg`
     fill: #696969;
     stroke: #fff;
   }
+  ${(props) => (props.$active ? TrackTimeSvgActive : "")};
 `
 
 export const TrackTimeText = styled.span`

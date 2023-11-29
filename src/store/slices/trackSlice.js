@@ -7,6 +7,10 @@ const initialState = {
     isPlaying: false,
     shuffle: false,
     shuffleAllTracks: [],
+    allFavoritesTracks: [],
+    allCategory: [],
+    currentPlaylist: [],
+    currentPage: "",
 }
 
 const getShuffleAllTracks = (array) => {
@@ -19,12 +23,19 @@ export const playerSlice = createSlice({
     initialState,
     reducers: {
         setAllTracks: (state, action) => { 
-            state.allTracks = action.payload },
+            state.allTracks = action.payload
+        },
         setActiveTrack: (state, action) => { 
             const { track, indexActiveTrack } = action.payload;
             state.activeTrack = track;
             state.indexActiveTrack = indexActiveTrack;
-         },
+        },
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
+        },
+        setCurrentPlaylist: (state, action) => {
+            state.currentPlaylist = action.payload;
+        }, 
         setIsPlaying: (state, action) => { 
             state.isPlaying = action.payload },
         setNextTrack: (state, action) => {
@@ -39,10 +50,18 @@ export const playerSlice = createSlice({
         },
         setShuffleTrack: (state, action) => {
             state.shuffle = action.payload;
-            state.shuffleAllTracks = state.shuffle && getShuffleAllTracks(state.allTracks);
-        }
+            if (state.shuffled) {
+                state.shuffleAllTracks = state.shuffle && getShuffleAllTracks(state.currentPlaylist);
+            }
+        },
+        setAllFavoritesTracks: (state, action) => { 
+            state.allFavoritesTracks = action.payload 
+        },
+        setAllCategory: (state, action) => {
+            state.allCategory = action.payload;
+        },    
     }
 })
 
-export const {setAllTracks,  setIsPlaying,  setActiveTrack,  setNextTrack,  setPrevTrack, setShuffleTrack} = playerSlice.actions;
+export const {setAllTracks,  setIsPlaying,  setActiveTrack, setCurrentPage, setCurrentPlaylist,  setNextTrack,  setPrevTrack, setShuffleTrack, setAllFavoritesTracks, setAllCategory} = playerSlice.actions;
 export default playerSlice.reducer;

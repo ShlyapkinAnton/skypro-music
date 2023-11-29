@@ -1,4 +1,5 @@
-const baseURL = 'https://skypro-music-api.skyeng.tech'
+const baseURL = 'https://skypro-music-api.skyeng.tech';
+
 export async function GetTracks() {
   const response = await fetch(`${baseURL}/catalog/track/all/`, {
     method: 'GET',
@@ -37,8 +38,47 @@ export async function getCatalog({ id }) {
 }
 
 export async function getFavorite() {
+  const token = localStorage.getItem('userToken');
+
   const response = await fetch(`${baseURL}/catalog/track/favorite/all/`, {
     method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  if (!response.ok) {
+    throw new Error('Произошла ошибка')
+  }
+
+  const data = await response.json()
+  return data
+}
+
+export async function getLike({ id }) {
+  const token = localStorage.getItem('userToken');
+
+  const response = await fetch(`${baseURL}/catalog/track/${id}/favorite/`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  if (!response.ok) {
+    throw new Error('Произошла ошибка')
+  }
+
+  const data = await response.json()
+  return data
+}
+
+export async function getDislike({ id }) {
+  const token = localStorage.getItem('userToken');
+
+  const response = await fetch(`${baseURL}/catalog/track/${id}/favorite/`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   })
   if (!response.ok) {
     throw new Error('Произошла ошибка')
@@ -65,22 +105,9 @@ export async function getSignUp({ username, email, password }) {
     const errorMessages = Object.values(errorData).flat()
     throw new Error(errorMessages[0])
   }
+  
   const data = await response.json()
   return data
-  // getToken(email, password)
-  // .then((response) => {
-  //   if (!response.ok) {
-  //     const errorData = response.json()
-  //     const errorMessages = Object.values(errorData).flat()
-  //     throw new Error(errorMessages[0])
-  //   }
-  //   let data = response.json();
-  //   console.log("dataToken",data)
-  //   return data
-  // })
-  // .then((data) => {
-  //   localStorage.setItem('access', data.access)
-  // })
 }
 
 export async function getSignIn({ email, password }) {
@@ -99,23 +126,25 @@ export async function getSignIn({ email, password }) {
     const errorMessages = Object.values(errorData).flat()
     throw new Error(errorMessages[0])
   }
-  const data = await response.json()
-  return data
+
+  return response.json()
 }
 
-export async function getToken({ email, password }) {
-  const response = await fetch(`${baseURL}/user/token/`, {
-    method: 'POST',
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-    headers: {
-      'content-type': 'application/json',
-    },
-  }).catch((error) => {
-    alert(error.message)
-  })
-  return response
-}
+// export async function getToken ({ email, password }) {
+//   const response = await fetch(`${baseURL}/user/token/`, {
+//     method: 'POST',
+//     body: JSON.stringify({
+//       email: email,
+//       password: password,
+//     }),
+//     headers: {
+//       'content-type': 'application/json',
+//     },
+//   }).catch((error) => {
+//     alert(error.message)
+//   })
+//   const data = await response.json();
+//   localStorage.setItem('userToken', data.access);
+//   return data
+// }
 

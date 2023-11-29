@@ -1,15 +1,15 @@
 import * as S from './SideBarStyles'
 import { Link } from 'react-router-dom'
-import { useContext } from "react";
-import { UserContext } from '../../Context/UserContext.js';
+// import { useContext } from "react";
+// import { UserContext } from '../../Context/UserContext.js';
 
 export const SBar = ({ props }) => {
-  const user = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <S.MainSidebar>
       <S.SidebarPersonal>
-        <S.SidebarPersonalName>{user}</S.SidebarPersonalName>
+        <S.SidebarPersonalName>{user.username}</S.SidebarPersonalName>
         <Link to="/auth">
           <S.SidebarIcon>
             <S.SidebarIconSvg alt="logout">

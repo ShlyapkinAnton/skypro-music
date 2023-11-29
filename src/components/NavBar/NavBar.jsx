@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext  } from 'react';
 import * as S from "../NavBar/NavBarStyled";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
 
-export const Bar = ({ user, setUser }) => {
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-  };
-
+export const Bar = () => {
+  // const handleLogout = () => {
+  //   setUser(null);
+  //   localStorage.removeItem("user");
+  //   localStorage.removeItem("auth");
+  //   window.location.href = "/Auth";
+  // };
+  const { handleLogout } = useContext(UserContext);
   const [showMore, setShowMore] = useState(false);
-  function handleMoreClick() {
+  const handleMoreClick = () => {
     setShowMore(!showMore);
   }
 
@@ -18,7 +21,7 @@ export const Bar = ({ user, setUser }) => {
       <S.NavLogo> 
         <Link to="/"><S.LogoImage src="/img/logo.png" alt="logo" /></Link>
       </S.NavLogo>
-      <S.Burger type='button' onClick={handleMoreClick}><S.NavBurger>
+      <S.Burger type='button' onClick={() => handleMoreClick()}><S.NavBurger>
         <S.BurgerLine />
         <S.BurgerLine />
         <S.BurgerLine />
@@ -27,7 +30,7 @@ export const Bar = ({ user, setUser }) => {
         <S.MenuList>
           <S.MenuItem><S.MenuLink to="/" >Главное</S.MenuLink></S.MenuItem>
           <S.MenuItem><S.MenuLink to="/favorites" >Мой плейлист</S.MenuLink></S.MenuItem>
-          <S.MenuItem><S.MenuLink to="/auth" onClick={user !== null && handleLogout} >{ setUser ? 'ВЫЙТИ' : 'Войти' }</S.MenuLink ></S.MenuItem>
+          <S.MenuItem><S.MenuLink to="/auth" onClick={handleLogout} >ВЫЙТИ</S.MenuLink ></S.MenuItem>  
         </S.MenuList>
       </S.NavMenu>}
     </S.MainNav>

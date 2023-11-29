@@ -1,9 +1,23 @@
 import { useState } from 'react'
 import * as S from './TrackListStyled'
-import {SearchBlock} from '../SearchBlock/SearchBlock'
-import {Tracks} from '../Tracks/Tracks'
+import { SearchBlock } from '../SearchBlock/SearchBlock'
+import { TrackItem } from '../Tracks/TrackItems'
+// import { Filter } from '../Filter/Filter'
+import { useDispatch, useSelector } from 'react-redux'
+import { setActiveTrack, setCurrentPlaylist } from '../../store/slices/trackSlice.js'
+import { allTracksSelector, shuffleAllTracksSelector, shuffleSelector, currentPageSelector, currentPlaylistSelector, allFavoritesTracksSelector, allCategorySelector } from '../../store/selectors/index.js'
 
-export const Lists = ({text, tracks, errorFetch, activeTrack, setActiveTrack, handleActiveTrack }) => {
+export const Lists = ({text, tracks, errorFetch, isLoading }) => {
+  const dispatch = useDispatch()
+  const currentPage = useSelector(currentPageSelector)
+  const currentPlaylist = useSelector(currentPlaylistSelector)
+  const shuffle = useSelector(shuffleSelector)
+  const shuffleAllTracks = useSelector(shuffleAllTracksSelector)
+  const allTracks = useSelector(allTracksSelector)
+  const favouritesTracks = useSelector(allFavoritesTracksSelector)
+  const categoryTracks = useSelector(allCategorySelector);
+  const arrayTracksAll = shuffle ? shuffleAllTracks : currentPlaylist
+
   const [filterPerformerVisible, setVisible] = useState(false)
   const filterPerformerClick = () => {
     setVisible(!filterPerformerVisible)
@@ -24,6 +38,26 @@ export const Lists = ({text, tracks, errorFetch, activeTrack, setActiveTrack, ha
     setVisible(false)
     setYearVisible(false)
   }
+
+  if (shuffle) {
+    dispatch(setShuffleTrack({ shuffle }));
+  }
+
+  const handleActiveTrack = (track) => {  
+
+    if (currentPage === "Main") {
+      dispatch(setCurrentPlaylist(allTracks));
+    }
+    if (currentPage === "Favorites") {
+      dispatch(setCurrentPlaylist(favouritesTracks));
+    }
+    if (currentPage === "Category") {
+      dispatch(setCurrentPlaylist(categoryTracks));
+    }
+
+    const indexActiveTrack = arrayTracksAll.indexOf(track)
+    dispatch(setActiveTrack({ track, indexActiveTrack }))
+  };
 
   return (
     <S.MainCenterblock>
@@ -103,7 +137,14 @@ export const Lists = ({text, tracks, errorFetch, activeTrack, setActiveTrack, ha
           </S.PlaylistTitleCol04>
         </S.ContentTitle>
 
-        <Tracks tracks={tracks} errorFetch={errorFetch} activeTrack={activeTrack} setActiveTrack={setActiveTrack} handleActiveTrack={handleActiveTrack}/>
+        <S.ContentPlaylist>
+          <S.ContentPlaylistError>
+            {errorFetch !== null ? `Ошибка: ${errorFetch}` : null}
+          </S.ContentPlaylistError>
+          {isLoading && new Array(20) .fill() .map(() => ( <TrackItem key={Math.random()} isLoading={isLoading} /> ))}
+          {tracks && tracks.map((track) => ( <TrackItem key={track.id} handleActiveTrack={handleActiveTrack} isLoading={isLoading} track={track} tracks={tracks} />))}
+        </S.ContentPlaylist>
+
       </S.CenterblockContent>
     </S.MainCenterblock>
   )

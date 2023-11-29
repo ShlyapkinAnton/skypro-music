@@ -1,11 +1,15 @@
 import { Link, Navigate, useNavigate  } from 'react-router-dom'
 import * as S from './authStyled'
 import { useEffect, useState } from 'react'
+import { useDispatch } from "react-redux";
 import { getSignUp, getSignIn } from '../../Api.js'
+import { useAccessTokenUserMutation } from '../../serviseQuery/token'
+import { setAuth } from '../../store/slices/authorizationSlice'
 
-export const AuthPage = ({ isLoginMode, setIsLoginMode, setUser }) => {
+export const AuthPage = ({ setUser }) => {
+  const [isLoginMode, setIsLoginMode] = useState(true)
+  const dispatch = useDispatch()
   const [error, setError] = useState(null)
-
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -13,21 +17,40 @@ export const AuthPage = ({ isLoginMode, setIsLoginMode, setUser }) => {
   const navigate = useNavigate()
   const [buttonActive, setButtonActive] = useState(false)
 
+  const [postToken] = useAccessTokenUserMutation();
+
+  const responseToken = async () => {
+    await postToken({ email, password })
+    .unwrap()
+    .then((token) => {
+      dispatch(
+        setAuth({
+          access: token.access,
+          refresh: token.refresh,
+          user: JSON.parse(localStorage.getItem("user")),
+        })
+      );
+    });
+  };
+
   const handleLogin = async ({ email, password }) => {
     if (!email || !password) {
       setError("Заполните поле ввода");
-      return
+      return 
     }
     try {
+      const response = await getSignIn({ email, password })
+      // console.log("response", response) // id username email
+
+      // dispatch(setAuth(response))
+
+      setUser(response); 
+      localStorage.setItem("user", JSON.stringify(response));
+      responseToken();
       setButtonActive(true);
-      await getSignIn({ email, password })
-      .then((json) => {
-        alert(`Выполняется вход: ${email} ${password}`);
-        localStorage.setItem('user', json.username);
-        setUser(localStorage.getItem('user'));
-        setError(null);
-        navigate("/", {replace:true});
-      })
+      navigate("/", {replace:true}); 
+      alert(`Выполняется вход: ${email} ${password}`);
+      setError(null)
     } catch (error) {
       console.error('Ошибка авторизации:', error.message);
       setError(error.message);
