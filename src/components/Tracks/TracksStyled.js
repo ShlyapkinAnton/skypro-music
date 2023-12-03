@@ -1,28 +1,28 @@
 import { styled, css, keyframes } from 'styled-components'
 
 const animationPointPulse = () => css`
-animation: pulse 0.6s ease-in-out infinite both;
+  animation: pulse 0.6s ease-in-out infinite both;
 
-@keyframes pulse {
-  0%,
-  to {
-    transform: scale(0.5);
+  @keyframes pulse {
+    0%,
+    to {
+      transform: scale(0.5);
+    }
+    50% {
+      transform: scale(1);
+    }
   }
-  50% {
-    transform: scale(1);
-  }
-}
-`;
+`
 export const PointPlaying = styled.div`
-position: relative; 
-text-align: center;
-padding: 8px;
-width: 16px;
-height: 16px;
-background-color: #b672ff;
-border-radius: 50%;
-${(props) => (props.$playing ? animationPointPulse : "")};
-`;
+  position: relative;
+  text-align: center;
+  padding: 8px;
+  width: 16px;
+  height: 16px;
+  background-color: #b672ff;
+  border-radius: 50%;
+  ${(props) => (props.$playing ? animationPointPulse : '')};
+`
 
 export const ContentPlaylist = styled.div`
   display: -webkit-box;
@@ -151,9 +151,9 @@ export const TrackAlbumLink = styled.a`
 export const TrackTime = styled.div``
 
 const TrackTimeSvgActive = () => css`
-  fill: #696969;
+  fill: #b672ff;
   stroke: #fff;
-`;
+`
 
 export const TrackTimeSvg = styled.svg`
   width: 14px;
@@ -168,7 +168,7 @@ export const TrackTimeSvg = styled.svg`
     fill: #696969;
     stroke: #fff;
   }
-  ${(props) => (props.$active ? TrackTimeSvgActive : "")};
+  ${(props) => (props.$active ? TrackTimeSvgActive : '')};
 `
 
 export const TrackTimeText = styled.span`

@@ -1,9 +1,9 @@
-import { Link, Navigate, useNavigate  } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import * as S from './authStyled'
 import { useEffect, useState } from 'react'
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux'
 import { getSignUp, getSignIn } from '../../Api.js'
-import { useAccessTokenUserMutation } from '../../serviseQuery/token'
+import { useAccessTokenUserMutation } from '../../serviceQuery/token'
 import { setAuth } from '../../store/slices/authorizationSlice'
 
 export const AuthPage = ({ setUser }) => {
@@ -17,51 +17,47 @@ export const AuthPage = ({ setUser }) => {
   const navigate = useNavigate()
   const [buttonActive, setButtonActive] = useState(false)
 
-  const [postToken] = useAccessTokenUserMutation();
+  const [postToken] = useAccessTokenUserMutation()
 
   const responseToken = async () => {
     await postToken({ email, password })
-    .unwrap()
-    .then((token) => {
-      dispatch(
-        setAuth({
-          access: token.access,
-          refresh: token.refresh,
-          user: JSON.parse(localStorage.getItem("user")),
-        })
-      );
-    });
-  };
+      .unwrap()
+      .then((token) => {
+        dispatch(
+          setAuth({
+            access: token.access,
+            refresh: token.refresh,
+            user: JSON.parse(localStorage.getItem('user')),
+          })
+        )
+      })
+  }
 
   const handleLogin = async ({ email, password }) => {
     if (!email || !password) {
-      setError("Заполните поле ввода");
-      return 
+      setError('Заполните поле ввода')
+      return
     }
     try {
       const response = await getSignIn({ email, password })
-      // console.log("response", response) // id username email
-
       // dispatch(setAuth(response))
-
-      setUser(response); 
-      localStorage.setItem("user", JSON.stringify(response));
-      responseToken();
-      setButtonActive(true);
-      navigate("/", {replace:true}); 
-      alert(`Выполняется вход: ${email} ${password}`);
+      setUser(response)
+      localStorage.setItem('user', JSON.stringify(response))
+      responseToken()
+      setButtonActive(true)
+      navigate('/', { replace: true })
       setError(null)
     } catch (error) {
-      console.error('Ошибка авторизации:', error.message);
-      setError(error.message);
+      console.error('Ошибка авторизации:', error.message)
+      setError(error.message)
     } finally {
-      setButtonActive(false);
+      setButtonActive(false)
     }
-  } 
+  }
 
   const handleRegister = async () => {
     if (!username || !email || !password || !repeatPassword) {
-      setError("Заполните поле ввода");
+      setError('Заполните поле ввода')
       return
     }
     if (password !== repeatPassword) {
@@ -69,25 +65,22 @@ export const AuthPage = ({ setUser }) => {
       return
     }
     try {
-      setButtonActive(true);
-      await getSignUp({username, email, password})
-      .then((json) => {
-        alert(`Выполняется регистрация: ${email} ${password}`);
-        localStorage.setItem('user', json.username);
-        setUser(localStorage.getItem('user'));
-        setError(null);
-        setIsLoginMode(true)
-        navigate("/", {replace:true});
-      })
+      const response = await getSignUp({ username, email, password })
+      setUser(response)
+      localStorage.setItem('user', JSON.stringify(response))
+      responseToken()
+      setButtonActive(true)
+      navigate('/', { replace: true })
+      setError(null)
+      setIsLoginMode(true)
     } catch (error) {
-      console.error('Ошибка авторизации:', error.message);
-      setError(error.message);
+      console.error('Ошибка авторизации:', error.message)
+      setError(error.message)
     } finally {
-      setButtonActive(false);
+      setButtonActive(false)
     }
   }
 
-  // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
   useEffect(() => {
     setError(null)
   }, [isLoginMode, username, email, password, repeatPassword])
@@ -122,10 +115,13 @@ export const AuthPage = ({ setUser }) => {
                 }}
               />
             </S.Inputs>
-            {error && <S.Error>{error}</S.Error>} 
+            {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton disabled={buttonActive} onClick={() => handleLogin({ email, password })}>
-                {buttonActive ? 'Выполняется вход...' : 'Войти' }
+              <S.PrimaryButton
+                disabled={buttonActive}
+                onClick={() => handleLogin({ email, password })}
+              >
+                {buttonActive ? 'Выполняется вход...' : 'Войти'}
               </S.PrimaryButton>
               <Link onClick={() => setIsLoginMode(false)} to="/auth">
                 <S.SecondaryButton>Зарегистрироваться</S.SecondaryButton>
@@ -175,7 +171,9 @@ export const AuthPage = ({ setUser }) => {
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
               <S.PrimaryButton disabled={buttonActive} onClick={handleRegister}>
-                {buttonActive ? 'Выполняется регистрация...' : 'Зарегистрироваться' }
+                {buttonActive
+                  ? 'Выполняется регистрация...'
+                  : 'Зарегистрироваться'}
               </S.PrimaryButton>
             </S.Buttons>
           </>

@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import tracksReducer from './slices/trackSlice';
-import authReducer from './slices/authorizationSlice';
-import { tokenQuery } from '../serviseQuery/token';
-import { tracksQuery } from '../serviseQuery/tracks';
+import { configureStore } from '@reduxjs/toolkit'
+import tracksReducer from './slices/trackSlice'
+import authReducer from './slices/authorizationSlice'
+import { tokenQuery } from '../serviceQuery/token'
+import { tracksQuery } from '../serviceQuery/tracks'
 
 export const store = configureStore({
   reducer: {

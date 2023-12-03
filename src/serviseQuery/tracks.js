@@ -1,17 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setAuth } from '../store/slices/authorizationSlice'
 
-/**
- * baseQueryWithReauth – это наша кастомная обертка над fetchBaseQuery, которая умеет обновлять access токен если запрос вернул 401 код.
- * Эта функция подразумевает, что access и refresh токены хранятся в redux сторе auth.
- *
- * args - это параметры конкретного запроса, там лежит url, method и другие параметры запроса
- * api и extraOptions - это доп. параметры с хелперами
- */
-
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
-    baseUrl: ' https://skypro-music-api.skyeng.tech',
+    baseUrl: 'https://skypro-music-api.skyeng.tech',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.access
       // console.debug('Использую токен из стора', { token })
@@ -24,6 +16,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   const result = await baseQuery(args, api, extraOptions)
   // console.debug('Результат первого запроса', { result })
+
   if (result?.error?.status !== 401) {
     return result
   }
@@ -31,6 +24,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   const forceLogout = () => {
     console.debug('Принудительная авторизация!')
     api.dispatch(setAuth(null))
+    window.location.navigate('/auth')
   }
 
   const { auth } = api.getState()
@@ -53,7 +47,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   )
 
   // console.debug('Результат запроса на обновление токена', { refreshResult })
-
   if (!refreshResult.data.access) {
     return forceLogout()
   }
@@ -83,7 +76,7 @@ export const tracksQuery = createApi({
           : [{ type: 'Tracks', id: 'LIST' }],
     }),
 
-    getFavouriteTracksAll: builder.query({
+    getFavoriteTracksAll: builder.query({
       query: () => 'catalog/track/favorite/all/',
       providesTags: (result) =>
         result
@@ -97,22 +90,22 @@ export const tracksQuery = createApi({
     setLike: builder.mutation({
       query: (track) => ({
         url: `catalog/track/${track.id}/favorite/`,
-        method: "POST",
+        method: 'POST',
       }),
       invalidatesTags: [
-        { type: "Favorites", id: "LIST" },
-        { type: "Tracks", id: "LIST" },
+        { type: 'Favorites', id: 'LIST' },
+        { type: 'Tracks', id: 'LIST' },
       ],
     }),
 
     setDislike: builder.mutation({
       query: (track) => ({
         url: `catalog/track/${track.id}/favorite/`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
       invalidatesTags: [
-        { type: "Favorites", id: "LIST" },
-        { type: "Tracks", id: "LIST" },
+        { type: 'Favorites', id: 'LIST' },
+        { type: 'Tracks', id: 'LIST' },
       ],
     }),
 
@@ -121,13 +114,18 @@ export const tracksQuery = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.items.map(({ id }) => ({ type: "Selections", id })),
-              { type: "Selections", id: "LIST" },
+              ...result.items.map(({ id }) => ({ type: 'Selections', id })),
+              { type: 'Selections', id: 'LIST' },
             ]
-          : [{ type: "Selections", id: "LIST" }],
+          : [{ type: 'Selections', id: 'LIST' }],
     }),
-
   }),
 })
 
-export const { useGetTracksAllQuery, useGetFavouriteTracksAllQuery, useSetLikeMutation, useSetDislikeMutation, useGetSelectionsQuery } = tracksQuery
+export const {
+  useGetTracksAllQuery,
+  useGetFavoriteTracksAllQuery,
+  useSetLikeMutation,
+  useSetDislikeMutation,
+  useGetSelectionsQuery,
+} = tracksQuery

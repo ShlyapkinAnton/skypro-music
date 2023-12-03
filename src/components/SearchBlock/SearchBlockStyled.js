@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const CenterblockSearch = styled.div`
+export const CenterBlockSearch = styled.div`
   width: 100%;
   border-bottom: 1px solid #4e4e4e;
   margin-bottom: 51px;
@@ -14,7 +14,7 @@ export const CenterblockSearch = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-`;
+`
 
 export const SearchSvg = styled.svg`
   width: 17px;
@@ -22,7 +22,7 @@ export const SearchSvg = styled.svg`
   margin-right: 5px;
   stroke: #ffffff;
   fill: transparent;
-`;
+`
 
 export const SearchText = styled.input`
   -webkit-box-flex: 100;

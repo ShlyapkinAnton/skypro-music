@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled, css } from 'styled-components'
 
 export const Bar = styled.div`
   position: absolute;
@@ -15,7 +15,7 @@ export const BarContent = styled.div`
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  background: rgba(28, 28, 28, 0.7);
+  background: rgba(28, 28, 28, 1);
 `
 
 export const BarPlayerProgress = styled.div`
@@ -317,11 +317,15 @@ export const TrackPlayLikeDis = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-left: 26%;
+  margin-left: 20px;
 `
 
 export const TrackPlayLike = styled.div`
   padding: 5px;
+`
+const TrackPlayLikeActive = () => css`
+  fill: #b672ff;
+  stroke: #fff;
 `
 
 export const TrackPlayLikeSvg = styled.svg`
@@ -336,6 +340,7 @@ export const TrackPlayLikeSvg = styled.svg`
     fill: #696969;
     stroke: #fff;
   }
+  ${(props) => (props.$active ? TrackPlayLikeActive : '')};
 `
 
 export const TrackPlayDislike = styled.div`
