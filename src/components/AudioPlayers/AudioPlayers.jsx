@@ -1,14 +1,14 @@
 import { useRef, useState, useEffect } from 'react'
-// import { ProgressBar } from './ProgressBar/ProgressBar.jsx';
+// import { ProgressBar } from './ProgressBar/ProgressBar';
 import * as S from './AudioPlayersStyled'
-import { formatTime } from '../time.js'
+import { formatTime } from '../time'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setIsPlaying,
   setNextTrack,
   setPrevTrack,
   toggleShuffleTracks,
-} from '../../store/slices/trackSlice.js'
+} from '../../store/slices/trackSlice'
 import {
   ActiveTrackSelector,
   isPlayingSelector,
@@ -16,7 +16,7 @@ import {
   shuffleSelector,
   indexActiveTrackSelector,
   currentPlaylistSelector,
-} from '../../store/selectors/index.js'
+} from '../../store/selectors/index'
 import {
   useSetLikeMutation,
   useSetDislikeMutation,

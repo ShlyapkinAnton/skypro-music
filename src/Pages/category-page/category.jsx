@@ -1,15 +1,15 @@
 import { useParams } from 'react-router-dom'
-import { Lists } from '../../components/TrackList/TrackList.jsx'
+import { Lists } from '../../components/TrackList/TrackList'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   allCategorySelector,
   filtersPlaylistSelector,
-} from '../../store/selectors/index.js'
+} from '../../store/selectors/index'
 import {
   setAllCategory,
   setCurrentPage,
-} from '../../store/slices/trackSlice.js'
+} from '../../store/slices/trackSlice'
 import { useGetSelectionsQuery } from '../../serviceQuery/tracks'
 
 export const CategoryPage = () => {

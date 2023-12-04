@@ -1,14 +1,14 @@
-import { Lists } from '../../components/TrackList/TrackList.jsx'
+import { Lists } from '../../components/TrackList/TrackList'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   allFavoritesTracksSelector,
   filtersPlaylistSelector,
-} from '../../store/selectors/index.js'
+} from '../../store/selectors/index'
 import {
   setAllFavoritesTracks,
   setCurrentPage,
-} from '../../store/slices/trackSlice.js'
+} from '../../store/slices/trackSlice'
 import { useGetFavoriteTracksAllQuery } from '../../serviceQuery/tracks'
 
 export const FavoritesPage = () => {

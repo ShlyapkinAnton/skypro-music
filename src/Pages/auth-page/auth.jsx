@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import * as S from './authStyled'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { getSignUp, getSignIn } from '../../Api.js'
+import { getSignUp, getSignIn } from '../../Api'
 import { useAccessTokenUserMutation } from '../../serviceQuery/token'
 import { setAuth } from '../../store/slices/authorizationSlice'
 

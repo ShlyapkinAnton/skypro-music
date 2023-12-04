@@ -1,15 +1,15 @@
 import * as S from './TracksStyled'
 import { useState, useEffect } from 'react'
-import { formatTime } from '../time.js'
+import { formatTime } from '../time'
 import { useSelector } from 'react-redux'
 import {
   ActiveTrackSelector,
   isPlayingSelector,
-} from '../../store/selectors/index.js'
+} from '../../store/selectors/index'
 import {
   useSetLikeMutation,
   useSetDislikeMutation,
-} from '../../serviceQuery/tracks.js'
+} from '../../serviceQuery/tracks'
 
 export const TrackItem = ({ track, isLoading, handleActiveTrack }) => {
   const activeTrack = useSelector(ActiveTrackSelector)

@@ -1,7 +1,7 @@
 import * as S from './TrackListStyled'
 import { SearchBlock } from '../SearchBlock/SearchBlock'
 import { TrackItem } from '../Tracks/TrackItems'
-import { Filters } from '../Filters/Filters.jsx'
+import { Filters } from '../Filters/Filters'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -9,7 +9,7 @@ import {
   setCurrentPlaylist,
   toggleShuffleTracks,
   setFilterPlaylist,
-} from '../../store/slices/trackSlice.js'
+} from '../../store/slices/trackSlice'
 import {
   allTracksSelector,
   shuffleAllTracksSelector,
@@ -19,7 +19,7 @@ import {
   allFavoritesTracksSelector,
   allCategorySelector,
   filtersPlaylistSelector,
-} from '../../store/selectors/index.js'
+} from '../../store/selectors/index'
 
 export const Lists = ({ text, tracks, errorFetch, isLoading }) => {
   const dispatch = useDispatch()

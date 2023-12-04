@@ -1,11 +1,11 @@
-import { Lists } from '../../components/TrackList/TrackList.jsx'
+import { Lists } from '../../components/TrackList/TrackList'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   allTracksSelector,
   filtersPlaylistSelector,
-} from '../../store/selectors/index.js'
-import { setAllTracks, setCurrentPage } from '../../store/slices/trackSlice.js'
+} from '../../store/selectors/index'
+import { setAllTracks, setCurrentPage } from '../../store/slices/trackSlice'
 import { useGetTracksAllQuery } from '../../serviceQuery/tracks'
 
 export const MainPage = () => {

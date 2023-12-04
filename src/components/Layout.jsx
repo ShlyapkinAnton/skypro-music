@@ -1,12 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import * as S from '../AppStyled.js'
-import { ActiveTrackSelector } from '../store/selectors/index.js'
-import { Bar } from '../components/NavBar/NavBar.jsx'
-import { SBar } from '../components/SideBar/SideBar.jsx'
-import { PlayList } from '../components/PlayLists/PlayLists.jsx'
-import { Player } from '../components/AudioPlayers/AudioPlayers.jsx'
+import * as S from '../AppStyled'
+import { ActiveTrackSelector } from '../store/selectors/index'
+import { Bar } from '../components/NavBar/NavBar'
+import { SBar } from '../components/SideBar/SideBar'
+import { PlayList } from '../components/PlayLists/PlayLists'
+import { Player } from '../components/AudioPlayers/AudioPlayers'
 
 export const Layout = () => {
   const currentTrack = useSelector(ActiveTrackSelector)
