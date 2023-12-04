@@ -27,7 +27,7 @@ export const FavoritesPage = () => {
 
   useEffect(() => {
     dispatch(setAllFavoritesTracks(data))
-  }, [filter.isActiveSort, tracks])
+  }, [filter.isActiveSort, tracks, filter])
 
   useEffect(() => {
     if (data) {

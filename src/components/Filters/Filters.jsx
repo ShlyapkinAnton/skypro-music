@@ -1,6 +1,6 @@
 import * as S from './FiltersStyled'
 import { useState } from 'react'
-import uniq from 'lodash/uniq'
+import uniq from 'lodash.uniq'
 import { useDispatch, useSelector } from 'react-redux'
 import { TracksFilterCategory } from '../TrackFilterCategory/TrackFilterCategory'
 import { setFilterPlaylist } from '../../store/slices/trackSlice'

@@ -26,7 +26,7 @@ export const CategoryPage = () => {
 
   useEffect(() => {
     dispatch(setAllCategory(data?.items))
-  }, [filter.isActiveSort, tracks])
+  }, [filter.isActiveSort, tracks, filter])
 
   useEffect(() => {
     if (data) {
