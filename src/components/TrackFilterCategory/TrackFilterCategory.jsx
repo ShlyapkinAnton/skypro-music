@@ -1,21 +1,12 @@
 import React from 'react'
 import * as S from './TracksFilterCategoryStyle'
 
-export function TracksFilterCategory({
-  nameCategory,
-  content,
-  isActiveCategory,
-  setActiveCategory,
-  numberSelectedValues,
-}) {
-  const InstallCategoryFilter = () =>
-    setActiveCategory(isActiveCategory === nameCategory ? '' : nameCategory)
-
+export const TracksFilterCategory = ({ nameCategory, content, isActiveCategory, setActiveCategory, numberSelectedValues }) => {
   return (
     <S.FilterCategoryName>
       <S.FilterButton
         type="button"
-        onClick={InstallCategoryFilter}
+        onClick={() => setActiveCategory(isActiveCategory === nameCategory ? '' : nameCategory)}
         className={isActiveCategory === nameCategory}
       >
         {nameCategory}
