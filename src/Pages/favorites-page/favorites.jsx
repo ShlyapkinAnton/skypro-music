@@ -1,25 +1,43 @@
-import { Lists } from '../../components/TrackList/TrackList.jsx'
+import { Lists } from '../../components/TrackList/TrackList'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { allFavoritesTracksSelector } from '../../store/selectors/index.js'
-import { setAllFavoritesTracks, setCurrentPage } from '../../store/slices/trackSlice.js'
-import { useGetFavouriteTracksAllQuery } from '../../serviseQuery/tracks'
+import {
+  allFavoritesTracksSelector,
+  filtersPlaylistSelector,
+} from '../../store/selectors/index'
+import {
+  setAllFavoritesTracks,
+  setCurrentPage,
+} from '../../store/slices/trackSlice'
+import { useGetFavoriteTracksAllQuery } from '../../serviceQuery/tracks'
 
 export const FavoritesPage = () => {
-  const dispatch = useDispatch() // изменить
-  const tracks = useSelector(allFavoritesTracksSelector) // получить
+  const dispatch = useDispatch()
   const [errorFetch, setErrorFetch] = useState(null)
+  const favoriteTracks = useSelector(allFavoritesTracksSelector)
+  const filter = useSelector(filtersPlaylistSelector)
+  const tracks =
+    filter?.isActiveSort ||
+    filter?.isActiveAuthors ||
+    filter?.isActiveGenres ||
+    filter?.isActiveSearch
+      ? filter?.filterTracksArr
+      : favoriteTracks
+  const { data, isError, isLoading } = useGetFavoriteTracksAllQuery()
 
-  const { data, isError, isLoading } = useGetFavouriteTracksAllQuery()
+  useEffect(() => {
+    dispatch(setAllFavoritesTracks(data))
+  }, [filter.isActiveSort, tracks, filter])
+
   useEffect(() => {
     if (data) {
       dispatch(setAllFavoritesTracks(data))
-      dispatch(setCurrentPage("Favorites"))
+      dispatch(setCurrentPage('Favorites'))
       setErrorFetch(null)
     } else {
       setErrorFetch('В этом плейлисте нет треков')
     }
-    if (isError ) {
+    if (isError) {
       setErrorFetch('Не удалось загрузить плейлист, попробуйте позже')
     }
   }, [data, isError])

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
 export const SidebarBlock = styled.div`
   height: 100%;
@@ -45,10 +45,10 @@ export const SidebarLink = styled(NavLink)`
 export const SidebarImg = styled.img`
   width: 100%;
   height: auto;
-`;
+`
 
-export const Hidden  = styled.div`
+export const Hidden = styled.div`
   width: 250px;
   height: 150px;
   background: #313131;
-`;
+`

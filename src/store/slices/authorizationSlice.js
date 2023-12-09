@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
-const AUTH_INFO = "auth";
+const AUTH_INFO = 'auth'
 function getAuthFromLocalStorage() {
   try {
-    return JSON.parse(localStorage.getItem(AUTH_INFO));
+    return JSON.parse(localStorage.getItem(AUTH_INFO))
   } catch (error) {
-    console.error(error);
-    return null;
+    console.error(error)
+    return null
   }
 }
 const initialState = {
@@ -16,18 +16,17 @@ const initialState = {
   // first_name: '',
   // last_name: '',
 
-
   access: '',
   refresh: '',
   user: [],
-};
+}
 
 export const authSlice = createSlice({
-  name: "authReducer",
+  name: 'authReducer',
   initialState: getAuthFromLocalStorage() ?? initialState,
   reducers: {
     setAuth: (state, action) => {
-      const payload = action.payload ?? initialState;
+      const payload = action.payload ?? initialState
 
       // state.id = payload.id
       // state.email = payload.email
@@ -39,10 +38,10 @@ export const authSlice = createSlice({
       state.access = payload.access
       state.refresh = payload.refresh
 
-      localStorage.setItem(AUTH_INFO, JSON.stringify(state));
+      localStorage.setItem(AUTH_INFO, JSON.stringify(state))
     },
   },
-});
+})
 
-export const { setAuth } = authSlice.actions;
-export default authSlice.reducer;
+export const { setAuth } = authSlice.actions
+export default authSlice.reducer
